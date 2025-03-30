@@ -1,27 +1,33 @@
 {
-  "name": "makeup-ecommerce-management-system",
-  "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.13.1",
-    "morgan": "^1.10.0",
-    "zod": "^3.24.2"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.1",
-    "typescript": "^5.8.2"
-  }
+   "name": "makeup-ecommerce-management-system",
+   "version": "1.0.0",
+   "description": "",
+   "license": "ISC",
+   "author": "",
+   "type": "commonjs",
+   "main": "index.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node dist/index.js",
+      "build": "tsc && cp ./package.json /dist ",
+      "dev": "ts-node-dev --files src/index.ts",
+      "format": "prettier -c --write ."
+   },
+   "dependencies": {
+      "cookie-parser": "^1.4.7",
+      "cors": "^2.8.5",
+      "dotenv": "^16.4.7",
+      "express": "^4.21.2",
+      "helmet": "^8.1.0",
+      "jsonwebtoken": "^9.0.2",
+      "mongoose": "^8.13.1",
+      "morgan": "^1.10.0",
+      "zod": "^3.24.2"
+   },
+   "devDependencies": {
+      "@types/express": "^4.17.1",
+      "prettier": "^3.5.3",
+      "ts-node-dev": "^2.0.0",
+      "typescript": "^5.8.2"
+   }
 }
