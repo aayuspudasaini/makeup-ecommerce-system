@@ -6,7 +6,13 @@ import { FaFacebookF, FaTiktok } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 import { FaInstagram } from "react-icons/fa6";
 
-const socialMedia: { title: string; icon: IconType; href?: string }[] = [
+interface iSocialProps {
+    title: string;
+    icon: IconType;
+    href?: string;
+}
+
+const socialMedia: iSocialProps[] = [
     {
         title: "Facebook",
         icon: FaFacebookF,
