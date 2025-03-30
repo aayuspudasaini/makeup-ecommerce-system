@@ -1,13 +1,22 @@
 import Image from "next/image";
 import { Container } from "@/components/global/container";
+import Link from "next/link";
 
 export const ShopByCategory = () => {
     return (
         <Container className="flex flex-col gap-y-6 py-6 md:py-12">
-            <h1 className="text-xl md:text-2xl font-extrabold leading-6 tracking-tight text-center">
-                Shop by Category
-            </h1>
-            <div className="border-b" />
+            <div className="flex items-center justify-between gap-6">
+                <h2 className="text-xl md:text-2xl font-bold leading-6 tracking-tight text-center">
+                    Shop By Category
+                </h2>
+
+                <Link
+                    className="text-muted-foreground hover:text-secondary-foreground hover:underline font-medium text-md"
+                    href="/collections/category"
+                >
+                    View All
+                </Link>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <CategoryCard />
                 <CategoryCard />

@@ -56,9 +56,9 @@ const components: { title: string; href: string; description: string }[] = [
 export const NavigationBar = () => {
     return (
         <nav className="h-[4rem] flex items-center justify-between border-b">
-            <Container>
+            <Container className="flex items-center justify-between">
+                <AppLogo />
                 <NavigationMenu className="flex items-center justify-between flex-row">
-                    <AppLogo />
                     <NavigationMenuList>
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>
@@ -133,13 +133,13 @@ export const NavigationBar = () => {
                             </Link>
                         </NavigationMenuItem>
                     </NavigationMenuList>
-                    <div className="ml-auto flex items-center gap-2.5">
-                        <ThemeSwitcher />
-                        <Search className="size-4" />
-                        <UserCircle className="size-4" />
-                        <LucideShoppingBag className="size-4" />
-                    </div>
                 </NavigationMenu>
+                <div className=" flex items-center gap-4">
+                    <ThemeSwitcher />
+                    <Search className="size-4" />
+                    <UserCircle className="size-4" />
+                    <LucideShoppingBag className="size-4" />
+                </div>
             </Container>
         </nav>
     );
