@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 
-const font = Montserrat({
+const font = Manrope({
     subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
