@@ -14,7 +14,7 @@ import videoRoutes from './routes/videoRoutes';
 import bookingRoutes from './routes/bookingRoutes';
 import categoryRoutes from './routes/categoryRoutes';
 
-
+import { config } from "./config/app.config";
 import { db } from './config/db.config';
 
 // Middleware
@@ -42,11 +42,17 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
+app.use("/categories", categoryRoutes);
 app.use('/videos', videoRoutes);
 app.use('/bookings', bookingRoutes);
 
 // Start the server
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+
+app.listen(config.PORT, async () => {
+   console.log(
+      `Successfully running on port:${config.PORT} in ${config.NODE_ENV}`
+   );
+
+   // database connection
+   await db.connect(config.MONGO_URL);
 });
