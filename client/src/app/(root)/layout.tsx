@@ -10,7 +10,10 @@ export default function RootLayout({
 }) {
     return (
         <main>
+            <div className="h-8 w-full border-b bg-gray-100/90 dark:bg-inherit" />
             <NavigationBar />
+            <div className="h-8 w-full border-b bg-gray-100/90 dark:bg-inherit" />
+
             {children}
             <WhatsAppContact />
             <Footer />

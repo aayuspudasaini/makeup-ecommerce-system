@@ -1,6 +1,7 @@
 import { AppLogo } from "@/components/app-logo";
 import { Container } from "@/components/global/container";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
+import { Button } from "@/components/ui/button";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -11,9 +12,11 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { LucideShoppingBag, Search, UserCircle } from "lucide-react";
+import { CgShoppingBag } from "react-icons/cg";
+import { FaRegHeart } from "react-icons/fa6";
 import Link from "next/link";
 import React from "react";
+import { LuUserRound } from "react-icons/lu";
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -55,7 +58,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export const NavigationBar = () => {
     return (
-        <nav className="h-[4rem] flex items-center justify-between border-b">
+        <nav className="top-0 sticky z-50 bg-background h-[4rem] flex items-center justify-between border-b">
             <Container className="flex items-center justify-between">
                 <AppLogo />
                 <NavigationMenu className="flex items-center justify-between flex-row">
@@ -134,11 +137,32 @@ export const NavigationBar = () => {
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>
-                <div className=" flex items-center gap-4">
+                <div className=" flex items-center gap-2.5">
                     <ThemeSwitcher />
-                    <Search className="size-4" />
-                    <UserCircle className="size-4" />
-                    <LucideShoppingBag className="size-4" />
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="w-8 h-8 cursor-pointer hover:bg-transparent dark:hover:bg-transparent"
+                        title="Wishlist"
+                    >
+                        <FaRegHeart className="size-4" />
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="w-8 h-8 cursor-pointer hover:bg-transparent dark:hover:bg-transparent"
+                        title="Account"
+                    >
+                        <LuUserRound className="size-4" />
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="w-8 h-8 cursor-pointer hover:bg-transparent dark:hover:bg-transparent"
+                        title="Shopping Bag"
+                    >
+                        <CgShoppingBag className="size-4" />
+                    </Button>
                 </div>
             </Container>
         </nav>
