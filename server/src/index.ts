@@ -21,7 +21,7 @@ import { db } from './config/db.config';
 // import errorHandler from './middleware/errorMiddleware';
 
 // Load environment variables
-// dotenv.config();
+dotenv.config();
 
 // Initialize Express app
 const app = express();
@@ -52,7 +52,6 @@ app.listen(config.PORT, async () => {
    console.log(
       `Successfully running on port:${config.PORT} in ${config.NODE_ENV}`
    );
-
    // database connection
    await db.connect(config.MONGO_URL);
 });
