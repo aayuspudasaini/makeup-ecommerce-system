@@ -1,10 +1,12 @@
 import express from "express";
 import { login, signup, } from "../controllers/authController";
+import { signupValidator, loginValidator } from "../validators/authValidators";
+import { validateRequest } from "../middlewares/validateRequest";
 
 const authRouter = express.Router();
 
-authRouter.post("/signup", signup);
-authRouter.post("/login", login);
+authRouter.post("/signup",signupValidator, validateRequest,signup);
+authRouter.post("/login",loginValidator,validateRequest, login);
 // authRouter.get("/verify-email/:token", verifyEmail);
 // authRouter.post("/forgot-password", forgotPassword);
 // authRouter.post("/reset-password/:token", resetPassword);
