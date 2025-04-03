@@ -1,5 +1,18 @@
-const { HTTP_STATUS } = require("../config/http.config");
-const { AppError } = require("../exceptions/app-error");
+const { ZodError } = require("zod");
+const { HTTP_STATUS } = require("../constants/http.config");
+const { AppError } = require("../exceptions/errors.exceptions");
+
+const formatZod = (res, error) => {
+    let errors = {};
+
+    error.errors.forEach((err) => {
+        errors[err.path[0]] = err.message;
+    });
+    return res.status(HTTP_STATUS.BAD_REQUEST).send({
+        status: false,
+        errors,
+    });
+};
 
 const ErrorHandler = (error, req, res, next) => {
     console.log(`Error occured on path ${req.path}`, error);
@@ -8,6 +21,10 @@ const ErrorHandler = (error, req, res, next) => {
             status: false,
             message: "Invalid JSON Data passed. Please check your request body",
         });
+    }
+
+    if (error instanceof ZodError) {
+        formatZod(res, error);
     }
 
     if (error instanceof AppError) {

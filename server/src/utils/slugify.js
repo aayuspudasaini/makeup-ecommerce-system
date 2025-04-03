@@ -1,4 +1,4 @@
-module.exports.slugify = (text) => {
+const slugify = (text) => {
     return text
         .toLowerCase()
         .normalize("NFD")
@@ -7,3 +7,5 @@ module.exports.slugify = (text) => {
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "");
 };
+
+module.exports = { slugify };

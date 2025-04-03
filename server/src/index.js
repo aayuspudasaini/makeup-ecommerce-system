@@ -3,6 +3,8 @@ const { db } = require("./config/db.config");
 const { config } = require("./config/app.config");
 const { expConfig } = require("./config/exp.config");
 const { ErrorHandler } = require("./middlewares/error-handler");
+const apiRoutes = require("./routes");
+const { upload } = require("./middlewares/upload");
 
 // Initialize Express app
 const app = express();
@@ -10,11 +12,17 @@ const app = express();
 // express middleware configurations
 expConfig(app);
 
-app.get("/", (req, res) => {
-    return res.status(200).send({
-        message: "Hello",
-    });
+// routes
+app.post("/upload", upload.single("upload"), (req, res) => {
+    if (req.file) {
+        return res.status(201).json({
+            status: true,
+            message: "File Added Successfully.",
+        });
+    }
 });
+
+app.use(config.BASE_URL, apiRoutes);
 
 // global Error Handler
 app.use(ErrorHandler);

@@ -32,6 +32,6 @@ userSchema.set("toJSON", {
     },
 });
 
-const User = model < UserDocument > ("User", userSchema);
+const User = model("User", userSchema);
 
 module.exports = User;

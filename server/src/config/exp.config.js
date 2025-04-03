@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const expConfig = (app) => {
     // Middleware
     app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+    app.use(express.urlencoded({ extended: false }));
 
     app.use(helmet());
     app.use(
