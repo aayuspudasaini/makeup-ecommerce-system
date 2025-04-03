@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 interface AuthRequest extends Request {
-    user?: any;
+    user: any;
 }
 
 export const authenticateUser = (req: AuthRequest, res: Response, next: NextFunction) => {

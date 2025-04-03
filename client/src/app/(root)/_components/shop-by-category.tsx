@@ -43,7 +43,7 @@ const CategoryCard: React.FC = () => {
                 />
             </div>
             <div className="w-full h-full bg-black absolute top-0 opacity-25" />
-            <p className="w-full text-center absolute bottom-8 text-xl font-bold text-white z-50">
+            <p className="w-full text-center absolute bottom-8 text-xl font-bold text-white z-10">
                 Eyes
             </p>
         </div>
