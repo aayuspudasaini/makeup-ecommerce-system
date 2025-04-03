@@ -3,3 +3,6 @@
 
 # Environment Variables
 .env
+
+#uploads
+/public/uploads
