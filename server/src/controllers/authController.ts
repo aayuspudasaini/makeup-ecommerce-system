@@ -17,7 +17,7 @@ export const signup = async (req: Request, res: Response) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const verificationToken = jwt.sign(
-            { id: User._id, role: User.role },
+            { email },
             process.env.JWT_SECRET!,
             { expiresIn: "1d" }
         );
