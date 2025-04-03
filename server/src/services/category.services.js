@@ -2,6 +2,8 @@ const { BadRequestException } = require("../exceptions/errors.exceptions");
 const { Category } = require("../models/category.model");
 const { slugify } = require("../utils/slugify");
 
+async function getAll() {}
+
 async function create(data) {
     // checking if category exists
     const slug = slugify(data.name);
