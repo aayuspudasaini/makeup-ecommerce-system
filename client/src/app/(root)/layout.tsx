@@ -10,7 +10,7 @@ export default function RootLayout({
 }) {
     return (
         <main>
-            <div className="h-8 w-full border-b bg-gray-100/90 dark:bg-inherit" />
+            <div className="h-8 w-full border-b bg-gray-100/90" />
             <NavigationBar />
             <div className="h-8 w-full border-b bg-gray-100/90 dark:bg-inherit" />
 

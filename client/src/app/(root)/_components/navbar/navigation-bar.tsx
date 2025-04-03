@@ -7,6 +7,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import React from "react";
 import { LuUserRound } from "react-icons/lu";
 import Link from "next/link";
+import { ShopAll } from "./shop-all";
 
 export const NavigationBar = () => {
     return (
@@ -14,11 +15,10 @@ export const NavigationBar = () => {
             <Container className="flex items-center justify-between h-full">
                 <AppLogo />
                 <div className="flex items-center gap-10 h-full">
-                    {["Shop All", "Best Sellers", "New", "Products"].map(
-                        (item, i) => (
-                            <ListItem key={i} title={item} />
-                        )
-                    )}
+                    <ShopAll />
+                    {["Best Sellers", "New", "Products"].map((item, i) => (
+                        <ListItem key={i} title={item} />
+                    ))}
                 </div>
 
                 <div className=" flex items-center gap-2.5">

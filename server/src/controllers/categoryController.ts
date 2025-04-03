@@ -1,28 +1,29 @@
-import { Request, Response } from "express";
-import Category from "../model/category";
+import { NextFunction, Request, Response } from "express";
+import Category from "../models/category.model";
+import { asyncHandler } from "../middlewares/async-handler";
+import { categorySchema } from "../validations/category.validation";
+import { categoryService } from "../services/category.service";
+import { HTTP_STATUS } from "../config/http.config";
 
-export const createCategory = async (req: Request, res: Response) => {
-    try {
-        const { name } = req.body;
-        if (!name) return res.status(400).json({ message: "Category name is required" });
+export const createCategory = asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<any> => {
 
-        const existingCategory = await Category.findOne({ name });
-        if (existingCategory) return res.status(400).json({ message: "Category already exists" });
+   const result = categorySchema.parse({ ...req.body });
 
-        const newCategory = new Category({ name });
-        await newCategory.save();
+   const data = await categoryService.create(result);
 
-        res.status(201).json({ message: "Category created successfully", category: newCategory });
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error });
-    }
-};
+   res.status(HTTP_STATUS.CREATED).json({
+      status: true,
+      message: "Category created successfully",
+      category: data,
+   });
+
+})
 
 export const getCategories = async (_req: Request, res: Response) => {
-    try {
-        const categories = await Category.find();
-        res.json(categories);
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error });
-    }
+   try {
+      const categories = await Category.find();
+      res.json(categories);
+   } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+   }
 };

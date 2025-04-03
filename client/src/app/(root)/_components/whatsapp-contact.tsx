@@ -9,7 +9,7 @@ export const WhatsAppContact: React.FC = () => {
         <Link
             href={"https://api.whatsapp.com/send/?phone=977980000000"}
             className={cn(
-                "fixed bottom-6 right-6 drop-shadow-md ",
+                "fixed bottom-6 right-6 drop-shadow-md",
                 buttonVariants({
                     size: "icon",
                     className:
