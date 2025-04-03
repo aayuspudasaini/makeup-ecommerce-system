@@ -2,6 +2,12 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { FaPlay, FaPause } from "react-icons/fa6";
+
+// interface iVideoProps{
+//     url:string;
+//     size?:""
+// }
+
 export const VideoCard = ({ url }: { url: string }) => {
     const [playing, setPlaying] = React.useState<boolean>(false);
 

@@ -13,7 +13,8 @@ import { ProductCard } from "./product-card";
 import React from "react";
 
 export const NewProducts = () => {
-    const [total, setTotal] = React.useState<number>(8);
+    // const [total, setTotal] = React.useState<number>(8);
+    const total = 8;
     const [api, setApi] = React.useState<CarouselApi>();
 
     React.useEffect(() => {
@@ -22,19 +23,9 @@ export const NewProducts = () => {
         }
     }, [api]);
 
-    const scrollToIndex = (index: number) => {
-        api?.scrollTo(index);
-    };
-
-    const prevButton = () => {
-        setTotal((prev) => prev - 1);
-        scrollToIndex(total);
-    };
-
-    const nextButton = () => {
-        setTotal((prev) => prev + 1);
-        scrollToIndex(total);
-    };
+    // const scrollToIndex = (index: number) => {
+    //     api?.scrollTo(index);
+    // };
 
     return (
         <Container className="flex flex-col gap-y-6 py-6 md:py-12">
@@ -54,14 +45,14 @@ export const NewProducts = () => {
                 <div className="flex gap-2.5">
                     <Button
                         className="rounded-full w-8 h-8 cursor-pointer"
-                        variant={total === 0 ? "ghost" : "default"}
-                        disabled={total === 0}
-                        onClick={prevButton}
+                        // variant={total === 0 ? "ghost" : "default"}
+                        // disabled={total === 0}
+                        onClick={api?.canScrollPrev}
                     >
                         <ChevronLeft className="size-4" />
                     </Button>
                     <Button
-                        onClick={nextButton}
+                        onClick={api?.canScrollNext}
                         disabled={total === 8}
                         variant={total === 8 ? "ghost" : "default"}
                         className="rounded-full w-8 h-8 cursor-pointer"

@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 export const AppLogo = () => {
     return (
-        <div>
+        <Link href="/">
             <h1 className="text-2xl font-extrabold">Cosmetics</h1>
-        </div>
+        </Link>
     );
 };
