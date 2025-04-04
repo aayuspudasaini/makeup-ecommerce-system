@@ -14,7 +14,7 @@ const appConfig = () => ({
         REFRESH_SECRET: getEnv("REFRESH_SECRET", "default_refresh_secret"),
         REFRESH_EXPIRES_IN: getEnv("REFRESH_EXPIRES_IN", "86400"),
     },
-    FRONTEND_ORIGIN_URL: getEnv("FRONTEND_ORIGIN_URL", "http://localhost:8000"),
+    FRONTEND_ORIGIN_URL: getEnv("FRONTEND_ORIGIN_URL", "http://localhost:3000"),
 });
 
 module.exports.config = appConfig();

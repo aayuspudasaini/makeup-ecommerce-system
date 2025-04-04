@@ -1,8 +1,18 @@
+"use client";
 import { Container } from "@/components/global/container";
 import Link from "next/link";
 import { CategoryCard } from "./category-card";
+import { getAllCategory } from "@/lib/api";
+import { useQuery } from "@tanstack/react-query";
 
 export const ShopByCategory = () => {
+    const { data } = useQuery({
+        queryKey: ["category"],
+        queryFn: async () => {
+            const res = await getAllCategory();
+            return res.data;
+        },
+    });
     return (
         <Container className="flex flex-col gap-y-6 py-6 md:py-12">
             <div className="flex items-center justify-between gap-6">
@@ -18,12 +28,7 @@ export const ShopByCategory = () => {
                 </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                <CategoryCard />
-                <CategoryCard />
-                <CategoryCard />
-                <CategoryCard />
-                <CategoryCard />
-                <CategoryCard />
+                {data?.data?.map((category, i) => <CategoryCard key={i} />)}
             </div>
         </Container>
     );

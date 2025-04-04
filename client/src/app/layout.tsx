@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { QueryProvider } from "@/providers/query-provider";
 
 const font = Manrope({
     subsets: ["latin"],
@@ -29,7 +30,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <TailwindIndicator position="bottomLeft" />
-                    {children}
+                    <QueryProvider>{children}</QueryProvider>
                 </ThemeProvider>
             </body>
         </html>

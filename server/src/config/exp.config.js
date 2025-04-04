@@ -10,6 +10,8 @@ const expConfig = (app) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
+    app.use("/public", express.static("public"));
+
     app.use(helmet());
     app.use(
         cors({

@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
     images: {
         remotePatterns: [
             {
-                hostname: "youtube.com",
+                hostname: "localhost",
+                port: "8000"
             },
         ],
     },
