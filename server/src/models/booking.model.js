@@ -6,6 +6,7 @@ const bookingSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    slug: { type: String, unique: true },
     email: {
         type: String,
         required: true,

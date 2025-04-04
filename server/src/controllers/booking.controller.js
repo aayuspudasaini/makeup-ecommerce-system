@@ -3,6 +3,18 @@ const { BookingService } = require("../services/booking.services");
 const { successResponse } = require("../utils/success.response");
 const { HTTP_STATUS } = require("../constants/http.config");
 
+async function getBooking(req,res,next){
+    const bookings = await BookingService.findAll();
+        // Send a success response with the bookings
+        successResponse(
+            res,
+            HTTP_STATUS.OK,
+            true,
+            bookings,
+            "Bookings fetched successfully"
+        );
+}
+
 async function createBooking(req, res, next) {
         // Validate the request body
         const validatedData = bookingSchema.parse(req.body);
@@ -20,4 +32,7 @@ async function createBooking(req, res, next) {
         );
 }
 
-module.exports = { createBooking };
+module.exports.bookController = { 
+    createBooking,
+    getBooking,
+ };
