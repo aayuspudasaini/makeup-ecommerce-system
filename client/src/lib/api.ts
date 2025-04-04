@@ -10,7 +10,6 @@ import API from "./axios-client";
 
 export const getAllCarousel = async () => await API.get("/carousel");
 
-
 /**
  * @desc All of the CAtegory routes are listed here.
  * @method GET -

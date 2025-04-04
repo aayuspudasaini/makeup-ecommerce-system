@@ -1,43 +1,46 @@
 const { userService } = require("../services/user.service");
 const { successResponse } = require("../utils/success.response");
 const { HTTP_STATUS } = require("../constants/http.config");
-const { registerSchema, loginSchema } = require("../validations/user.validation");
+const {
+    registerSchema,
+    loginSchema,
+} = require("../validations/user.validation");
 
 const userController = {
     // Handle user registration
     registerUser: async (req, res, next) => {
-            // Validate the request body
-            const validatedData = registerSchema.parse({...req.body});
+        // Validate the request body
+        const validatedData = registerSchema.parse({ ...req.body });
 
-            // Create a new user
-            const newUser = await userService.register(validatedData);
+        // Create a new user
+        const newUser = await userService.register(validatedData);
 
-            // Send success response
-            successResponse(
-                res,
-                HTTP_STATUS.CREATED,
-                true,
-                newUser,
-                "User registered successfully"
-            );
+        // Send success response
+        successResponse(
+            res,
+            HTTP_STATUS.CREATED,
+            true,
+            newUser,
+            "User registered successfully"
+        );
     },
 
     // Handle user login
     loginUser: async (req, res, next) => {
-            // Validate the request body
-            const validatedData = loginSchema.parse({...req.body});
+        // Validate the request body
+        const validatedData = loginSchema.parse({ ...req.body });
 
-            // Authenticate the user
-            const token = await userService.login(validatedData);
+        // Authenticate the user
+        const token = await userService.login(validatedData);
 
-            // Send success response
-            successResponse(
-                res,
-                HTTP_STATUS.OK,
-                true,
-                { token },
-                "Login successful"
-            );
+        // Send success response
+        successResponse(
+            res,
+            HTTP_STATUS.OK,
+            true,
+            { token },
+            "Login successful"
+        );
     },
 };
 
