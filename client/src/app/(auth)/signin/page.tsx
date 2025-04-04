@@ -5,19 +5,19 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { SignUpForm } from "../_components/signup-form";
+import { SignInForm } from "../_components/signin-form";
 
 export default function SignInPage() {
     return (
         <Card className="bg-inherit">
             <CardHeader className="text-center">
-                <CardTitle className="text-xl">Create new Account</CardTitle>
+                <CardTitle className="text-xl">Welcome back</CardTitle>
                 <CardDescription>
-                    Please enter your details to create a new account.
+                    Login with your credentials to access your account.
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <SignUpForm />
+                <SignInForm />
             </CardContent>
         </Card>
     );

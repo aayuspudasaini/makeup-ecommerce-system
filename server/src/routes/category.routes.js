@@ -6,7 +6,7 @@ const { upload } = require("../middlewares/upload");
 
 catRoute
     .route("/category")
-    .get((req, res) => res.send({ message: "Hello from category" }))
+    .get(asyncHandler(CategoryController.getAllCategory))
     .post(
         upload.single("image"),
         asyncHandler(CategoryController.createCategory)

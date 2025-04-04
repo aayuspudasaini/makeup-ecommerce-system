@@ -9,8 +9,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <main>
-            <div className="h-8 w-full border-b bg-gray-100/90" />
+        <main className="">
+            <div className="h-8 w-full border-b bg-gray-100/90 dark:bg-inherit" />
             <NavigationBar />
             <div className="h-8 w-full border-b bg-gray-100/90 dark:bg-inherit" />
 
