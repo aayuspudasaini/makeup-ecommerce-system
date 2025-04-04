@@ -26,7 +26,7 @@ class UnAuthorizedException extends AppError {
 }
 
 class BadRequestException extends AppError {
-    constructor(message = "Not Found", errorCode) {
+    constructor(message = "Bad request", errorCode) {
         super(message, HTTP_STATUS.BAD_REQUEST, errorCode);
     }
 }
