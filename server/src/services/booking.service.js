@@ -55,7 +55,7 @@ async function findById(id) {
     return booking;
 }
 
-module.exports.BookingService = {
+module.exports.bookingService = {
     findAll,
     create,
 };
