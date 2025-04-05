@@ -6,6 +6,7 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "./public/uploads");
     },
+
     filename: function (req, file, cb) {
         crypto.randomBytes(16, (err, bytes) => {
             const fn = bytes.toString("hex") + path.extname(file.originalname);
@@ -14,4 +15,7 @@ const storage = multer.diskStorage({
     },
 });
 
-exports.upload = multer({ storage: storage });
+exports.upload = multer({
+    storage: storage,
+    limits: { fileSize: 50 * 1024 * 1024 },
+});

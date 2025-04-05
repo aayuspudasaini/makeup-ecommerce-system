@@ -1,4 +1,4 @@
-import { object, string, boolean } from "zod";
+import { object, string, boolean, z, any } from "zod";
 
 /**
  * @desc This section contains all the global validation schema
@@ -44,6 +44,25 @@ export const SignInSchema = object({
     password: passwordSchema,
 });
 
+const fileSizeLimit = 10 * 1024 * 1024;
+
+export const FileSchema = z
+    .instanceof(File)
+    .refine(
+        (file) =>
+            ["image/png", "image/jpeg", "image/jpg", "video/mp4"].includes(
+                file.type
+            ),
+        {
+            message:
+                "Invalid file type. Only PNG, JPEG, JPG, or MP4 are allowed.",
+        }
+    )
+    .refine((file) => file.size <= fileSizeLimit, {
+        message: "File size should not exceed 10MB",
+    })
+    .nullable();
+
 /**
  * @desc This sections contains all the validation schema for the blog.
  * It Include
@@ -68,11 +87,43 @@ export const BlogSchema = object({
     category: string().min(1, "Category is required"),
 });
 
-export const CategorySchema = object({
-    name: string({ message: "Name is required" }).min(3).max(255),
-    color: string().min(1, "Color is required."),
-    description: string().min(3).max(255),
+export const categorySchema = object({
+    name: string()
+        .min(1, "Name is required")
+        .max(16, "Name must be at least 16 characters long."),
+    description: string().min(1, "Description is required"),
+    image: any()
+        .refine((file) => file?.length >= 1, { message: "Image is required." })
+        .refine(
+            (file) => file?.[0]?.size <= 10 * 1024 * 1024,
+            "Max image size is 10MB."
+        )
+        .refine(
+            (file) =>
+                ["image/png", "image/jpeg", "image/jpg", "video/mp4"].includes(
+                    file?.[0].type
+                ),
+            "Only .jpg, .jpeg, .png and mp4 formats are supported."
+        ),
 });
+
+//     custom<FileList>()
+//         .transform((file) => file.length > 0 && file.item(0))
+//         .refine((file) => !file || (!!file && file?.length <= 10 * 1024 * 1024), {
+//             message: "The file must be a maximum of 10MB.",
+//         })
+//         .refine((file) => !file || (!!file && file.size <= 10 * 1024 * 1024), {
+//             message: "The file must be a maximum of 10MB.",
+//         })
+//         .refine((file) => !file ||
+//             [
+//                 "image/png",
+//                 "image/jpeg",
+//                 "image/jpg",
+//                 "video/mp4"
+//             ].includes(file.type),
+//             { message: "Invalid file type. Only PNG, JPEG, JPG, or MP4 are allowed." })
+// });
 
 export const BlogCommentSchema = object({
     blogSlug: string().min(1, "Blog is required"),

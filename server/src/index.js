@@ -13,7 +13,8 @@ const app = express();
 expConfig(app);
 
 // routes
-app.post("/upload", upload.single("upload"), (req, res) => {
+app.post("/api/v1/upload", upload.single("upload"), (req, res) => {
+    console.log("File Data", req.body);
     if (req.file) {
         return res.status(201).json({
             status: true,

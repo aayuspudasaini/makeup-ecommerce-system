@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { ButtonType } from "@/types/button";
+import { cn } from "@/lib/utils";
 interface iButtonProps {
     isExecuting?: boolean;
     type?: ButtonType;
@@ -31,7 +32,7 @@ export const CustomButton = ({
     return (
         <Button
             type={type}
-            className={className}
+            className={cn("cursor-pointer", className)}
             size={size}
             variant={variant}
             onClick={onClick}

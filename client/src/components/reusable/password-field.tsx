@@ -93,7 +93,7 @@ export const PasswordField = (props: iFieldProps) => {
                                 type={showPassword ? "text" : "password"}
                                 placeholder={placeholder}
                                 className={cn(
-                                    "block w-full truncate input-field text-sm placeholder:text-sm",
+                                    "block w-full truncate text-sm placeholder:text-sm",
                                     inputclassname,
                                     errors[name]
                                         ? "border-red-500 dark:border-red-500"

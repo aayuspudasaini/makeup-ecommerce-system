@@ -14,27 +14,60 @@ async function getAllCategory(req, res, next) {
     );
 }
 
-async function createCategory(req, res, next) {
-    const result = categorySchema.parse({ ...req.body });
+async function createCategory(req, res) {
+    console.log(req.file);
+    console.log(req.body);
+    // const result = categorySchema.parse({ ...req.body });
 
-    const file = req.file;
+    // if (req.file) {
+    //     result.image = req.file.path;
+    // }
 
-    if (file) {
-        result.image = file.path;
-    }
+    // const data = await categoryService.create(result);
 
-    const data = await categoryService.create(result);
+    // successResponse(
+    //     res,
+    //     HTTP_STATUS.CREATED,
+    //     true,
+    //     data,
+    //     "Category created successfully"
+    // );
+}
 
+// async function updateCarousel(req, res) {
+//     const { id } = req.params;
+
+//     const result = carouselSchema.parse({ ...req.body });
+
+//     if (req.file) {
+//         result.url = req.file.path;
+//     }
+
+//     const data = await carouselServices.update(id, result);
+
+//     successResponse(
+//         res,
+//         HTTP_STATUS.OK,
+//         true,
+//         data,
+//         "Data Updated successfully."
+//     );
+// }
+
+async function deleteCategory(req, res) {
+    const { id } = req.params;
+    await categoryService.remove(id);
     successResponse(
         res,
-        HTTP_STATUS.CREATED,
+        HTTP_STATUS.OK,
         true,
-        data,
-        "Category created successfully"
+        undefined,
+        "Data Deleted successfully."
     );
 }
 
 module.exports.CategoryController = {
     getAllCategory,
     createCategory,
+    deleteCategory,
 };

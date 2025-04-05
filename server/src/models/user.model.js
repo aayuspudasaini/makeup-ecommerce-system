@@ -7,11 +7,11 @@ const userSchema = new Schema(
         name: { type: String, required: true },
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
+        avatar: { type: String, default: "/public/images/default-avatar.jpg" },
         role: { type: String, enum: ["admin", "user"], default: "user" },
         isVerified: { type: Boolean, default: false },
         verificationToken: { type: String },
         resetToken: { type: String },
-        slug: { type: String, unique: true }, // Add slug field
     },
     { timestamps: true, toJSON: {} }
 );

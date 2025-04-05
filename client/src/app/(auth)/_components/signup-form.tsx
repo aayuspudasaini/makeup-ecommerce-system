@@ -7,6 +7,10 @@ import { SignUpSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CustomButton } from "@/components/reusable/custom-button";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+import { signUp } from "@/lib/api";
+import { z } from "zod";
+import { toast } from "sonner";
 
 export const SignUpForm = () => {
     const form = useForm({
@@ -18,9 +22,25 @@ export const SignUpForm = () => {
         },
         resolver: zodResolver(SignUpSchema),
     });
+    const { mutate, isPending } = useMutation({
+        mutationFn: signUp,
+    });
+
+    const onSubmit = (data: z.infer<typeof SignUpSchema>) => {
+        mutate(data, {
+            onSuccess: (data) => {
+                form.reset();
+                toast.success(data?.data?.message);
+            },
+            onError: (error) => {
+                toast.error(error.message);
+            },
+        });
+    };
+
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit((data) => console.log(data))}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
                 <div className="grid gap-6">
                     <div className="grid gap-2.5">
                         <InputField
@@ -29,6 +49,7 @@ export const SignUpForm = () => {
                             placeholder="John Doe."
                             type={InputType.INPUT}
                             name="name"
+                            disabled={isPending}
                         />
                         <InputField
                             control={form.control}
@@ -36,21 +57,28 @@ export const SignUpForm = () => {
                             placeholder="user@example.com"
                             type={InputType.INPUT}
                             name="email"
+                            disabled={isPending}
                         />
                         <PasswordField
                             control={form.control}
                             label="Password"
                             placeholder="XXXXXXXX"
                             name="password"
+                            disabled={isPending}
                         />
                         <PasswordField
                             control={form.control}
                             label="Confirm Password"
                             placeholder="XXXXXXXX"
                             name="confirm_password"
+                            disabled={isPending}
                         />
 
-                        <CustomButton type="submit" className="w-full">
+                        <CustomButton
+                            type="submit"
+                            className="w-full"
+                            isExecuting={isPending}
+                        >
                             Create Account
                         </CustomButton>
                     </div>

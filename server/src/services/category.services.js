@@ -3,7 +3,7 @@ const { Category } = require("../models/category.model");
 const { slugify } = require("../utils/slugify");
 
 async function findAll() {
-    const categories = await Category.find({}).sort({ createdAt: -1 });
+    const categories = await Category.find({}).sort({ createdAt: 1 });
     return categories;
 }
 
@@ -63,4 +63,5 @@ async function remove(id) {
 module.exports.categoryService = {
     findAll,
     create,
+    remove,
 };

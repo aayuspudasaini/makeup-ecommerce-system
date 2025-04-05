@@ -1,163 +1,37 @@
 "use client";
 
 import * as React from "react";
-import {
-    AudioWaveform,
-    BookOpen,
-    Bot,
-    Command,
-    Frame,
-    GalleryVerticalEnd,
-    Map,
-    PieChart,
-    Settings2,
-    SquareTerminal,
-} from "lucide-react";
 
-import { NavMain } from "@/app/(backend)/_components/nav-main";
-import { NavProjects } from "@/app/(backend)/_components/nav-projects";
+import { ChevronRight } from "lucide-react";
+
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+
 import {
     Sidebar,
     SidebarContent,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
     SidebarHeader,
+    SidebarMenu,
     SidebarMenuButton,
+    SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { GiLipstick } from "react-icons/gi";
+import { NavLinkItems } from "./app-sidebar-items";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
-
-// This is sample data.
-const data = {
-    user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
-    },
-    teams: [
-        {
-            name: "Acme Inc",
-            logo: GalleryVerticalEnd,
-            plan: "Enterprise",
-        },
-        {
-            name: "Acme Corp.",
-            logo: AudioWaveform,
-            plan: "Startup",
-        },
-        {
-            name: "Evil Corp.",
-            logo: Command,
-            plan: "Free",
-        },
-    ],
-    navMain: [
-        {
-            title: "Playground",
-            url: "#",
-            icon: SquareTerminal,
-            isActive: true,
-            items: [
-                {
-                    title: "History",
-                    url: "#",
-                },
-                {
-                    title: "Starred",
-                    url: "#",
-                },
-                {
-                    title: "Settings",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Models",
-            url: "#",
-            icon: Bot,
-            items: [
-                {
-                    title: "Genesis",
-                    url: "#",
-                },
-                {
-                    title: "Explorer",
-                    url: "#",
-                },
-                {
-                    title: "Quantum",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Documentation",
-            url: "#",
-            icon: BookOpen,
-            items: [
-                {
-                    title: "Introduction",
-                    url: "#",
-                },
-                {
-                    title: "Get Started",
-                    url: "#",
-                },
-                {
-                    title: "Tutorials",
-                    url: "#",
-                },
-                {
-                    title: "Changelog",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Settings",
-            url: "#",
-            icon: Settings2,
-            items: [
-                {
-                    title: "General",
-                    url: "#",
-                },
-                {
-                    title: "Team",
-                    url: "#",
-                },
-                {
-                    title: "Billing",
-                    url: "#",
-                },
-                {
-                    title: "Limits",
-                    url: "#",
-                },
-            ],
-        },
-    ],
-    projects: [
-        {
-            name: "Design Engineering",
-            url: "#",
-            icon: Frame,
-        },
-        {
-            name: "Sales & Marketing",
-            url: "#",
-            icon: PieChart,
-        },
-        {
-            name: "Travel",
-            url: "#",
-            icon: Map,
-        },
-    ],
-};
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { GiLipstick } from "react-icons/gi";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    const pathname = usePathname();
     return (
-        <Sidebar collapsible="icon" {...props}>
+        <Sidebar {...props}>
             <SidebarHeader className="h-[3.6rem] border-b flex justify-center w-full">
                 <Link href="/dashboard" passHref>
                     <SidebarMenuButton
@@ -175,9 +49,100 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarMenuButton>
                 </Link>
             </SidebarHeader>
-            <SidebarContent>
-                <NavMain items={data.navMain} />
-                <NavProjects projects={data.projects} />
+            <SidebarContent className="gap-0">
+                <ScrollArea className="h-full">
+                    {NavLinkItems.map((item) =>
+                        item.items ? (
+                            <Collapsible
+                                key={item.title}
+                                title={item.title}
+                                defaultOpen={item.items.some(
+                                    (item) => item.href === pathname
+                                )}
+                                className="group/collapsible"
+                            >
+                                <SidebarGroup>
+                                    <SidebarGroupLabel
+                                        asChild
+                                        className={cn(
+                                            "mb-1.5 group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center",
+                                            {
+                                                "bg-sidebar-accent text-sidebar-accent-foreground":
+                                                    item.items.some(
+                                                        (item) =>
+                                                            item.href ===
+                                                            pathname
+                                                    ),
+                                            }
+                                        )}
+                                    >
+                                        <CollapsibleTrigger>
+                                            {item.icon && (
+                                                <item.icon className="mr-2 stroke-2" />
+                                            )}
+                                            {item.title}
+                                            <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                                        </CollapsibleTrigger>
+                                    </SidebarGroupLabel>
+                                    {item.items && (
+                                        <CollapsibleContent className="ml-6">
+                                            <SidebarGroupContent>
+                                                <SidebarMenu>
+                                                    {item.items.map((item) => (
+                                                        <SidebarMenuItem
+                                                            key={item.title}
+                                                        >
+                                                            <SidebarMenuButton
+                                                                className="group/label font-medium"
+                                                                isActive={
+                                                                    item.href ===
+                                                                    pathname
+                                                                }
+                                                                asChild
+                                                            >
+                                                                <Link
+                                                                    href={
+                                                                        item.href
+                                                                    }
+                                                                >
+                                                                    {item.icon && (
+                                                                        <item.icon className="mr-2" />
+                                                                    )}
+                                                                    {item.title}
+                                                                </Link>
+                                                            </SidebarMenuButton>
+                                                        </SidebarMenuItem>
+                                                    ))}
+                                                </SidebarMenu>
+                                            </SidebarGroupContent>
+                                        </CollapsibleContent>
+                                    )}
+                                </SidebarGroup>
+                            </Collapsible>
+                        ) : (
+                            <SidebarGroup className="m-0" key={item.title}>
+                                <SidebarGroupLabel
+                                    asChild
+                                    className={cn(
+                                        "group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                                        {
+                                            "bg-sidebar-accent text-sidebar-accent-foreground":
+                                                pathname.includes(item.href) ||
+                                                pathname.startsWith(item.href),
+                                        }
+                                    )}
+                                >
+                                    <Link href={item.href}>
+                                        {item.icon && (
+                                            <item.icon className="mr-2" />
+                                        )}
+                                        {item.title}
+                                    </Link>
+                                </SidebarGroupLabel>
+                            </SidebarGroup>
+                        )
+                    )}
+                </ScrollArea>
             </SidebarContent>
         </Sidebar>
     );
