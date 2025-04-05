@@ -12,7 +12,7 @@ userRoute
     .route('/login')
     .post(asyncHandler(userController.loginUser));
 
-    userRoute
+userRoute
     .route('/logout')
     .post(asyncHandler(userController.logoutUser));
 
