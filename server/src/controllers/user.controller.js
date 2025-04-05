@@ -42,6 +42,14 @@ const userController = {
             "Login successful"
         );
     },
+
+    logoutUser: async (req, res, next) => {
+        // Clear the token from cookies (if stored in cookies)
+        res.clearCookie("token");
+
+        // Send success response
+        successResponse(res, HTTP_STATUS.OK, true, null, "Logout successful");
+    },
 };
 
 module.exports = { userController };
