@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
-const { makePassword, comparePassword } = require("../utils/hash");
 const { slugify } = require("../utils/slugify");
+const { comparePassword, makePassword } = require("../utils/hash");
 
 const userSchema = new Schema(
     {

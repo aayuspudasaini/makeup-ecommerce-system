@@ -1,10 +1,10 @@
-const { userService } = require("../services/user.service");
 const { successResponse } = require("../utils/success.response");
 const { HTTP_STATUS } = require("../constants/http.config");
 const {
     registerSchema,
     loginSchema,
 } = require("../validations/user.validation");
+const { userService } = require("../services/user.services");
 
 const userController = {
     // Handle user registration

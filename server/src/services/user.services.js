@@ -1,7 +1,6 @@
 const User = require("../models/user.model");
 const { BadRequestException } = require("../exceptions/errors.exceptions");
 const jwt = require("jsonwebtoken");
-const { comparePassword } = require("../utils/hash");
 
 const userService = {
     // Register a new user
@@ -12,7 +11,7 @@ const userService = {
             throw new BadRequestException("Email is already registered.");
         }
 
-        // Create a new usergit 
+        // Create a new usergit
         const newUser = await User.create(data);
 
         // Remove sensitive fields before returning
