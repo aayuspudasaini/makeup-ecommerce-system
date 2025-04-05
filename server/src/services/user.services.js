@@ -12,7 +12,7 @@ const userService = {
             throw new BadRequestException("Email is already registered.");
         }
 
-        // Create a new user
+        // Create a new usergit 
         const newUser = await User.create(data);
 
         // Remove sensitive fields before returning

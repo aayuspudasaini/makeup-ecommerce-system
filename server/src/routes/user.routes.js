@@ -12,4 +12,8 @@ userRoute
     .route('/login')
     .post(asyncHandler(userController.loginUser));
 
+    userRoute
+    .route('/logout')
+    .post(asyncHandler(userController.logoutUser));
+
 module.exports = userRoute;
