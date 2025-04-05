@@ -17,6 +17,12 @@ async function getAllCarousel(req, res) {
 async function createCarousel(req, res) {
     const result = carouselSchema.parse({ ...req.body });
 
+    if (req.file.mimetype === "video/mp4") {
+        result.type = "video";
+    } else if (req.file.mimetype === "image/jpeg" || "image/png") {
+        result.type = "image";
+    }
+
     if (req.file) {
         result.url = req.file.path;
     }
