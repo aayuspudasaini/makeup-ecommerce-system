@@ -3,7 +3,7 @@ const { Router } = require("express");
 const catRoute = require("./category.routes");
 const bookroute = require("./booking.routes");
 const userRoute = require("./user.routes");
-// const prodRoute = require("./product.routes");
+const carouselRoute = require("./carousel.routes")
 
 const router = Router();
 

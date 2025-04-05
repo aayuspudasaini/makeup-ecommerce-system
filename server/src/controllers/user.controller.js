@@ -5,7 +5,7 @@ const {
     registerSchema,
     loginSchema,
 } = require("../validations/user.validation");
-const { userService } = require("../services/user.services");
+
 
 const userController = {
     // Handle user registration
