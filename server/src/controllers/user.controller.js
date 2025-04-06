@@ -6,8 +6,19 @@ const {
     loginSchema,
 } = require("../validations/user.validation");
 
-
 const userController = {
+    getAllUser: async (req, res, next) => {
+        const data = await userService.findAll();
+
+        successResponse(
+            res,
+            HTTP_STATUS.OK,
+            true,
+            data,
+            "Data fetched successfully"
+        );
+    },
+
     // Handle user registration
     registerUser: async (req, res, next) => {
         // Validate the request body
