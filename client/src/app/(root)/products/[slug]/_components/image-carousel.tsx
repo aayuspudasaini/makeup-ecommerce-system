@@ -1,42 +1,58 @@
 import {
     Carousel,
-    CarouselContent,
-    CarouselItem,
-} from "@/components/ui/carousel";
+    CarouselMainContainer,
+    CarouselThumbsContainer,
+    SliderMainItem,
+    SliderThumbItem,
+} from "@/components/extensions/carousel";
+import { useIsMobile } from "@/hooks/use-mobile";
 import Image from "next/image";
 
-export const ImageCarousel = () => {
+const ImageCarousel = () => {
     return (
-        <div className="flex flex-row gap-2.5">
-            <div className="flex flex-col gap-2.5">
-                {Array.from({ length: 4 }).map((_, i) => (
-                    <div
-                        key={i}
-                        className="w-24 h-24 aspect-square border cursor-pointer group overflow-hidden p-2"
+        <Carousel
+            orientation="vertical"
+            className="flex md:flex-row flex-col-reverse items-center gap-2.5 w-full"
+        >
+            <CarouselThumbsContainer className="h-60 w-48 md:w-24 flex flex-row md:block">
+                {Array.from({ length: 10 }).map((_, index) => (
+                    <SliderThumbItem
+                        key={index}
+                        index={index}
+                        className="rounded-md bg-transparent"
                     >
-                        <Image
-                            className="overflow-hidden object-cover h-full w-full group-hover:scale-110 transition-all duration-300"
-                            src="/images/kosas.png"
-                            alt="Product"
-                            width={1200}
-                            height={1080}
-                        />
-                    </div>
+                        <span className="border border-muted flex items-center justify-center h-full w-full rounded-md cursor-pointer bg-background">
+                            <Image
+                                className="h-full w-full rounded-sm"
+                                src={"/images/hero.jpg"}
+                                alt="product image"
+                                width={1200}
+                                height={800}
+                            />
+                        </span>
+                    </SliderThumbItem>
                 ))}
+            </CarouselThumbsContainer>
+            <div className="relative flex-1 w-full">
+                <CarouselMainContainer className="h-[400px]">
+                    {Array.from({ length: 10 }).map((_, index) => (
+                        <SliderMainItem
+                            key={index}
+                            className=" border border-muted flex items-center justify-center h-52 rounded-md p-0"
+                        >
+                            <Image
+                                className="h-full w-full rounded-sm"
+                                src={"/images/hero.jpg"}
+                                alt="product image"
+                                width={1200}
+                                height={800}
+                            />
+                        </SliderMainItem>
+                    ))}
+                </CarouselMainContainer>
             </div>
-            <Carousel className="h-full">
-                <CarouselContent>
-                    <CarouselItem className="h-full">
-                        <Image
-                            className="object-cover h-full w-full"
-                            src="/images/kosas.png"
-                            alt="Product"
-                            width={1200}
-                            height={1080}
-                        />
-                    </CarouselItem>
-                </CarouselContent>
-            </Carousel>
-        </div>
+        </Carousel>
     );
 };
+
+export default ImageCarousel;

@@ -36,8 +36,8 @@ export const VideoCarousel = () => {
 
     return (
         <React.Fragment>
-            <div className="flex items-center justify-between">
-                <h2 className="text-lg font-bold leading-6 tracking-tight text-center">
+            <div className="flex items-center justify-between py-1.5">
+                <h2 className="text-xl font-bold leading-6 tracking-tight text-center">
                     See it in action
                 </h2>
 
@@ -68,7 +68,12 @@ export const VideoCarousel = () => {
                             key={index}
                             className="basis-1/2 md:basis-1/4"
                         >
-                            <VideoCard url="/videos/makeup-tutorial.mp4" />
+                            <VideoCard
+                                url="/videos/makeup-tutorial.mp4"
+                                width={600}
+                                height={800}
+                                className="w-32 h-48 md:h-48"
+                            />
                         </CarouselItem>
                     ))}
                 </CarouselContent>

@@ -11,8 +11,10 @@ import { useMutation } from "@tanstack/react-query";
 import { signUp } from "@/lib/api";
 import { z } from "zod";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const SignUpForm = () => {
+    const router = useRouter();
     const form = useForm({
         defaultValues: {
             name: "",
@@ -31,9 +33,10 @@ export const SignUpForm = () => {
             onSuccess: (data) => {
                 form.reset();
                 toast.success(data?.data?.message);
+                router.replace("/signin");
             },
             onError: (error) => {
-                toast.error(error.message);
+                toast.error(error.message || "Something went wrong.");
             },
         });
     };

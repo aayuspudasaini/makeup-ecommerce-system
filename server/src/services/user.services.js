@@ -1,6 +1,6 @@
 const User = require("../models/user.model");
 const { BadRequestException } = require("../exceptions/errors.exceptions");
-const jwt = require("jsonwebtoken");
+const { generateAccessToken } = require("../utils/token");
 
 const userService = {
     findAll: async () => {
@@ -38,14 +38,11 @@ const userService = {
             throw new BadRequestException("Invalid email or password.");
         }
 
-        // Generate a JWT token
-        const token = jwt.sign(
-            { id: user._id, role: user.role },
-            process.env.JWT_SECRET,
-            { expiresIn: "1d" }
-        );
+        const access_token = generateAccessToken({ userId: user._id });
 
-        return token;
+        console.log(access_token);
+
+        return { user, access_token };
     },
 };
 

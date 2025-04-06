@@ -31,7 +31,12 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <Toaster closeButton richColors position="top-right" />
+                    <Toaster
+                        toastOptions={{ duration: 1000 }}
+                        closeButton
+                        richColors
+                        position="top-right"
+                    />
                     <TailwindIndicator position="bottomLeft" />
                     <ModalProvider />
                     <QueryProvider>{children}</QueryProvider>

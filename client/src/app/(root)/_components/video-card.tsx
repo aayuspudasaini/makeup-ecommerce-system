@@ -43,8 +43,6 @@ export const VideoCard: React.FC<iVideoProps> = ({
                     width={width}
                     height={height}
                     src={url}
-                    loop
-                    autoPlay
                     muted
                 />
             </div>

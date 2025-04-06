@@ -1,15 +1,16 @@
 import { z } from "zod";
 import API from "./axios-client";
-import { categorySchema, SignUpSchema } from "./validation";
+import { categorySchema, SignInSchema, SignUpSchema } from "./validation";
 
 /**
  * @desc All of the authentication routes are handled here
  * @method POST
+ * @routes
+ * Login Routes, Register Routes
  */
-export const signUp = async (data: z.infer<typeof SignUpSchema>) =>
-    await API.post("/register", data);
+export const signUp = async (data: z.infer<typeof SignUpSchema>) => await API.post("/register", data);
 
-export const signIn = async () => await API.post("/login");
+export const signIn = async (data: z.infer<typeof SignInSchema>) => await API.post("/login", data);
 
 /**
  * @desc List of all the user routes are listed here.

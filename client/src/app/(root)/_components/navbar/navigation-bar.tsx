@@ -13,13 +13,13 @@ export const NavigationBar = () => {
         <nav className="top-0 sticky z-50 bg-background h-[4rem] flex items-center justify-between border-b">
             <Container className="flex items-center justify-between h-full">
                 <AppLogo />
-                <div className="flex items-center gap-10 h-full">
+                <div className=" hidden md:flex items-center gap-10 h-full">
                     {["Best Sellers", "New", "Products"].map((item, i) => (
                         <ListItem key={i} title={item} />
                     ))}
                 </div>
 
-                <div className=" flex items-center gap-2.5">
+                <div className="hidden md:flex items-center gap-2.5">
                     <ThemeSwitcher />
                     <Button
                         variant="ghost"

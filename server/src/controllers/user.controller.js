@@ -5,6 +5,12 @@ const {
     registerSchema,
     loginSchema,
 } = require("../validations/user.validation");
+const { config } = require("../config/app.config");
+const jwt = require("jsonwebtoken");
+const {
+    clearAuthenticationCookies,
+    setAuthenticationCookie,
+} = require("../utils/cookie");
 
 const userController = {
     getAllUser: async (req, res, next) => {
@@ -42,22 +48,24 @@ const userController = {
         // Validate the request body
         const validatedData = loginSchema.parse({ ...req.body });
 
-        // Authenticate the user
-        const token = await userService.login(validatedData);
+        const { user, access_token } = await userService.login(validatedData);
+
+        // setting cookie
+        setAuthenticationCookie(res, access_token);
 
         // Send success response
         successResponse(
             res,
             HTTP_STATUS.OK,
             true,
-            { token },
-            "Login successful"
+            { user, access_token },
+            "User Logged in successfully"
         );
     },
 
     logoutUser: async (req, res, next) => {
         // Clear the token from cookies (if stored in cookies)
-        res.clearCookie("token");
+        clearAuthenticationCookies();
 
         // Send success response
         successResponse(res, HTTP_STATUS.OK, true, null, "Logout successful");
