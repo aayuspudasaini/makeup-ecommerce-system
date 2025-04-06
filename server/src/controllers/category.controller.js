@@ -17,21 +17,21 @@ async function getAllCategory(req, res, next) {
 async function createCategory(req, res) {
     console.log(req.file);
     console.log(req.body);
-    // const result = categorySchema.parse({ ...req.body });
+    const result = categorySchema.parse({ ...req.body });
 
-    // if (req.file) {
-    //     result.image = req.file.path;
-    // }
+    if (req.file) {
+        result.image = req.file.path;
+    }
 
-    // const data = await categoryService.create(result);
+    const data = await categoryService.create(result);
 
-    // successResponse(
-    //     res,
-    //     HTTP_STATUS.CREATED,
-    //     true,
-    //     data,
-    //     "Category created successfully"
-    // );
+    successResponse(
+        res,
+        HTTP_STATUS.CREATED,
+        true,
+        data,
+        "Category created successfully"
+    );
 }
 
 // async function updateCarousel(req, res) {

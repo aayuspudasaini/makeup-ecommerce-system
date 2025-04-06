@@ -28,6 +28,7 @@ export const createCategoryMutationFn = async (
     data: z.infer<typeof categorySchema>
 ) => {
     data.image = data.image[0];
+    console.log(data)
     await API.post("/category", data);
 };
 

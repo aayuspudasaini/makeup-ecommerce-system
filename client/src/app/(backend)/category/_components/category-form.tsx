@@ -27,16 +27,16 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res }) => {
     const router = useRouter();
 
     const { mutate, isPending } = useMutation({
-        mutationFn: uploadMutationFn,
+        mutationFn: createCategoryMutationFn,
     });
 
     const form = useForm<CategoryFormData>({
         defaultValues: {
-            // name: "",
-            // description: "",
+            name: "",
+            description: "",
             image: null,
         },
-        // resolver: zodResolver(categorySchema),
+        resolver: zodResolver(categorySchema),
     });
 
     const dropzoneConfig = {
@@ -69,22 +69,22 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res }) => {
                         onSubmit={form.handleSubmit(onSubmit)}
                         encType="multipart/form-data"
                     >
-                        {/* <InputField
+                        <InputField
                             label="Name"
                             control={form.control}
                             name="name"
                             type={InputType.INPUT}
                             placeholder="Face"
                             disabled={isPending}
-                        /> */}
-                        {/* <InputField
+                        />
+                        <InputField
                             label="Description"
                             control={form.control}
                             name="description"
                             type={InputType.TEXTAREA}
                             placeholder="Write something..."
                             disabled={isPending}
-                        /> */}
+                        />
                         <FileUploaderField
                             control={form.control}
                             name="image"
