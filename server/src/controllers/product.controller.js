@@ -4,7 +4,7 @@ const { successResponse } = require("../utils/success.response");
 const { productSchema } = require("../validations/product.validation");
 
 async function getAllProducts(req, res, next) {
-        const data = await productService.findAll();
+        const data = await productService.findAll(req.query);
         successResponse(
             res,
             HTTP_STATUS.OK,
