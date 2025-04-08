@@ -9,7 +9,6 @@ catRoute
     .route("/category")
     .get(asyncHandler(CategoryController.getAllCategory))
     .post(
-        identification,
         upload.single("image"),
         asyncHandler(CategoryController.createCategory)
     );
@@ -22,6 +21,6 @@ catRoute
         upload.single("image"),
         asyncHandler(CategoryController.updateCategory)
     )
-    .delete(identification, asyncHandler(CategoryController.deleteCategory));
+    .delete(asyncHandler(CategoryController.deleteCategory));
 
 module.exports = catRoute;

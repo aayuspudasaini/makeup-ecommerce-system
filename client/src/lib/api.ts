@@ -25,17 +25,12 @@ export const getAllUser = async () => await API.get("/users");
 
 export const getAllCategory = async () => await API.get("/category");
 
-export const createCategoryMutationFn = async (
-    data: z.infer<typeof categorySchema>
-) => {
-    data.image = data.image[0];
-    console.log(data)
-    await API.post("/category", data);
-};
+export const createCategoryMutationFn = async (formData: FormData) => await API.post("/category", formData);
+
 
 export const uploadMutationFn = async (data: any) => {
-    console.log(data.image[0] as File);
-    await API.post("/upload", data.image[0] as File);
+    console.log("API FROM FRONTEND", data);
+    // await API.post("/upload", data.upload[0]);
 };
 
 export const deleteCategoryMutationFn = async (id: string) =>

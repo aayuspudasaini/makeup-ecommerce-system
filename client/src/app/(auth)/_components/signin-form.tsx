@@ -28,7 +28,6 @@ export const SignInForm = () => {
         setError("");
         mutate(data, {
             onSuccess: ({ data }) => {
-                console.log(data);
                 form.reset();
                 toast.success(data?.message);
                 // router.replace("/");

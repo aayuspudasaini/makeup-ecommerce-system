@@ -15,8 +15,6 @@ async function getAllCategory(req, res, next) {
 }
 
 async function createCategory(req, res) {
-    console.log(req.file);
-    console.log(req.body);
     const result = categorySchema.parse({ ...req.body });
 
     if (req.file) {

@@ -7,7 +7,7 @@ import { FileUploaderField } from "@/components/reusable/file-uploader-field";
 import { InputField, InputType } from "@/components/reusable/input-field";
 import { Card, CardContent } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { createCategoryMutationFn, uploadMutationFn } from "@/lib/api";
+import { createCategoryMutationFn } from "@/lib/api";
 import { categorySchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -34,7 +34,7 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res }) => {
         defaultValues: {
             name: "",
             description: "",
-            image: null,
+            image: undefined,
         },
         resolver: zodResolver(categorySchema),
     });
@@ -48,14 +48,20 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res }) => {
     } satisfies DropzoneOptions;
 
     const onSubmit = (data: CategoryFormData) => {
-        mutate(data, {
-            onSuccess: ({ data }: any) => {
-                router.push("/category");
+        const formData = new FormData();
+
+        formData.append("name", data.name);
+        formData.append("description", data.description);
+        formData.append("image", data.image[0]);
+
+        mutate(formData, {
+            onSuccess: ({ data }) => {
+                router.replace("/category");
                 form.reset();
                 toast.success(data?.message);
             },
             onError: (error) => {
-                console.log("Category Form Error", error);
+                toast.error(error?.message || "Something went wrong");
             },
         });
     };
@@ -67,7 +73,6 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res }) => {
                     <form
                         className="space-y-4"
                         onSubmit={form.handleSubmit(onSubmit)}
-                        encType="multipart/form-data"
                     >
                         <InputField
                             label="Name"
@@ -90,6 +95,7 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res }) => {
                             name="image"
                             label="Image"
                             dropzoneConfig={dropzoneConfig}
+                            disabled={isPending}
                         />
                         <div className="col-span-full flex justify-end gap-x-4 border-t pt-4">
                             <CustomButton
