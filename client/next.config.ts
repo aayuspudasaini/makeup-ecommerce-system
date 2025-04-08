@@ -4,10 +4,14 @@ const nextConfig: NextConfig = {
     /* config options here */
     devIndicators: false,
     images: {
-        remotePatterns: [{
-            hostname: "youtube.com"
-        }]
-    }
+        remotePatterns: [
+            {
+                hostname: "localhost",
+                port: "8000",
+            },
+        ],
+    },
+
 };
 
 export default nextConfig;

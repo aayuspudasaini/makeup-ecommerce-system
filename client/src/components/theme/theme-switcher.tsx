@@ -12,8 +12,9 @@ export function ThemeSwitcher() {
         <Button
             variant="ghost"
             size="icon"
-            className="w-9 h-9 cursor-pointer"
+            className="w-8 h-8 cursor-pointer hover:bg-transparent dark:hover:bg-transparent"
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            title="Theme"
         >
             <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

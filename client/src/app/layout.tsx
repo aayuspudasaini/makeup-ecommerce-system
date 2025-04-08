@@ -3,6 +3,9 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { QueryProvider } from "@/providers/query-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { ModalProvider } from "@/providers/modal-provider";
 
 const font = Manrope({
     subsets: ["latin"],
@@ -20,7 +23,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning suppressContentEditableWarning>
             <body className={`${font.className} antialiased`}>
                 <ThemeProvider
                     attribute="class"
@@ -28,8 +31,15 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
+                    <Toaster
+                        toastOptions={{ duration: 1000 }}
+                        closeButton
+                        richColors
+                        position="top-right"
+                    />
                     <TailwindIndicator position="bottomLeft" />
-                    {children}
+                    <ModalProvider />
+                    <QueryProvider>{children}</QueryProvider>
                 </ThemeProvider>
             </body>
         </html>
