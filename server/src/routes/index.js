@@ -13,6 +13,6 @@ router.use("/booking", bookroute);
 
 router.use("/", carouselRoute);
 router.use("/", userRoute);
-router.use("/", prodRoute);
+router.use("/products", prodRoute);
 
 module.exports = router;

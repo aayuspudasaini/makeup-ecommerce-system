@@ -6,18 +6,18 @@ const { productController } = require("../controllers/product.controller");
 const prodRoute = Router();
 
 prodRoute
-    .route("/product")
+    .route("/")
     .get(asyncHandler(productController.getAllProducts))
-    .post(asyncHandler(upload.single("url"), productController.createProduct));
+    .post(upload.single("url"), asyncHandler(productController.createProduct));
 
 prodRoute
-    .route("/product/:id")
+    .route("/:id")
     .get(asyncHandler(productController.getProductById))
     .patch(asyncHandler(upload.single("url"), productController.updateProduct))
     .delete(asyncHandler(productController.deleteProduct));
 
 prodRoute
-    .route("/product/category")
+    .route("/category")
     .get(asyncHandler(productController.getProductsByCategory));
 
 module.exports = prodRoute;

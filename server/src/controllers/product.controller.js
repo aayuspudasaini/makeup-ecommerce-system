@@ -16,6 +16,8 @@ async function getAllProducts(req, res, next) {
 
 async function createProduct(req, res, next) {
     // Validate the request body
+    req.body.price = parseInt(req.body.price);
+
     const validatedData = productSchema.parse({ ...req.body });
 
     // Create the product
