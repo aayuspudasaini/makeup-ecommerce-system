@@ -92,7 +92,8 @@ export const categorySchema = object({
         .min(1, "Name is required")
         .max(16, "Name must be at least 16 characters long."),
     description: string().min(1, "Description is required"),
-    image: any().refine((file) => file?.length >= 1, { message: "Image is required." })
+    image: any()
+        .refine((file) => file?.length >= 1, { message: "Image is required." })
         .refine(
             (file) => file?.[0]?.size <= 10 * 1024 * 1024,
             "Max image size is 10MB."
@@ -105,8 +106,6 @@ export const categorySchema = object({
             "Only .jpg, .jpeg, .png and mp4 formats are supported."
         ),
 });
-
-
 
 //     custom<FileList>()
 //         .transform((file) => file.length > 0 && file.item(0))

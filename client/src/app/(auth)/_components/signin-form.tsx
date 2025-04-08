@@ -27,10 +27,11 @@ export const SignInForm = () => {
     const onSubmit = (data: z.infer<typeof SignInSchema>) => {
         setError("");
         mutate(data, {
-            onSuccess: ({ data }) => {
+            onSuccess: async ({ data }) => {
                 form.reset();
                 toast.success(data?.message);
-                // router.replace("/");
+
+                router.replace("/");
             },
             onError: (error) => {
                 if (error.message) {

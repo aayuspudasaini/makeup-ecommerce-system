@@ -1,6 +1,6 @@
 import { z } from "zod";
 import API from "./axios-client";
-import { categorySchema, SignInSchema, SignUpSchema } from "./validation";
+import { SignInSchema, SignUpSchema } from "./validation";
 
 /**
  * @desc All of the authentication routes are handled here
@@ -8,9 +8,11 @@ import { categorySchema, SignInSchema, SignUpSchema } from "./validation";
  * @routes
  * Login Routes, Register Routes
  */
-export const signUp = async (data: z.infer<typeof SignUpSchema>) => await API.post("/register", data);
+export const signUp = async (data: z.infer<typeof SignUpSchema>) =>
+    await API.post("/register", data);
 
-export const signIn = async (data: z.infer<typeof SignInSchema>) => await API.post("/login", data);
+export const signIn = async (data: z.infer<typeof SignInSchema>) =>
+    await API.post("/login", data);
 
 /**
  * @desc List of all the user routes are listed here.
@@ -25,8 +27,8 @@ export const getAllUser = async () => await API.get("/users");
 
 export const getAllCategory = async () => await API.get("/category");
 
-export const createCategoryMutationFn = async (formData: FormData) => await API.post("/category", formData);
-
+export const createCategoryMutationFn = async (formData: FormData) =>
+    await API.post("/category", formData);
 
 export const uploadMutationFn = async (data: any) => {
     console.log("API FROM FRONTEND", data);
