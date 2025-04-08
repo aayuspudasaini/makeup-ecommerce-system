@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const { config } = require("./app.config");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 
 const expConfig = (app) => {
     // Middleware
@@ -13,11 +14,16 @@ const expConfig = (app) => {
     app.use("/public", express.static("public"));
 
     app.use(helmet());
-    app.use(cors());
-    // {
-    //         credentials: true,
-    //         origin: config.FRONTEND_ORIGIN_URL,
-    //     }
+    app.use(
+        cors({
+            credentials: true,
+            origin: config.FRONTEND_ORIGIN_URL,
+        })
+    );
+
+    // app.use(bodyParser.json());
+    // app.use(bodyParser.urlencoded({ extended: true }));
+
     app.use(cookieParser());
 
     // Logging API Routes

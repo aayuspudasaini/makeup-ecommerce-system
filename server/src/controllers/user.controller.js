@@ -5,8 +5,6 @@ const {
     registerSchema,
     loginSchema,
 } = require("../validations/user.validation");
-const { config } = require("../config/app.config");
-const jwt = require("jsonwebtoken");
 const {
     clearAuthenticationCookies,
     setAuthenticationCookie,
