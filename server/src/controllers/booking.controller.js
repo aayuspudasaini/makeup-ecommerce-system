@@ -2,7 +2,6 @@ const { bookingSchema } = require("../validations/booking.validation");
 const { bookingService } = require("../services/booking.service");
 const { successResponse } = require("../utils/success.response");
 const { HTTP_STATUS } = require("../constants/http.config");
-const { BookingService } = require("../services/booking.service");
 
 async function getBooking(req, res, next) {
     const bookings = await bookingService.findAll();

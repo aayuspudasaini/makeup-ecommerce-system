@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
-    fullName: {
+    name: {
         type: String,
         required: true,
         trim: true,
     },
-    slug: { type: String, unique: true },
     email: {
         type: String,
         required: true,
