@@ -48,17 +48,18 @@ const userController = {
         // Validate the request body
         const validatedData = loginSchema.parse({ ...req.body });
 
-        const { user, access_token } = await userService.login(validatedData);
+        const { user, access_token, refresh_token } =
+            await userService.login(validatedData);
 
         // setting cookie
-        setAuthenticationCookie(res, access_token);
+        setAuthenticationCookie(res, access_token, refresh_token);
 
         // Send success response
         successResponse(
             res,
             HTTP_STATUS.OK,
             true,
-            { user, access_token },
+            { user, access_token, refresh_token },
             "User Logged in successfully"
         );
     },

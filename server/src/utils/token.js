@@ -6,15 +6,24 @@ const accessTokenSignOptions = {
     expiresIn: config.JWT.EXPIRES_IN,
 };
 
+const refreshTokenSignOptions = {
+    secret: config.JWT.REFRESH_SECRET,
+    expiresIn: config.JWT.REFRESH_EXPIRES_IN,
+};
+
 const generateAccessToken = (payload) => {
     const { secret, ...opts } = accessTokenSignOptions;
     return jwt.sign(payload, secret, { ...opts });
 };
 
-const verifySignJwt = (token) => {
-    const { secret, ...opts } = accessTokenSignOptions;
-    const payload = jwt.verify(token, secret, { ...opts });
-    return { payload };
+const generateRefreshToken = (payload) => {
+    const { secret, ...opts } = refreshTokenSignOptions;
+    return jwt.sign(payload, secret, { ...opts });
 };
 
-module.exports = { generateAccessToken, verifySignJwt };
+const verifySignJwt = (token) => {
+    const { secret, ...opts } = accessTokenSignOptions;
+    return jwt.verify(token, secret, { ...opts });
+};
+
+module.exports = { generateAccessToken, generateRefreshToken, verifySignJwt };

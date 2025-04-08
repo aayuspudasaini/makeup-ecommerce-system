@@ -1,6 +1,6 @@
 const User = require("../models/user.model");
 const { BadRequestException } = require("../exceptions/errors.exceptions");
-const { generateAccessToken } = require("../utils/token");
+const { generateAccessToken, generateRefreshToken } = require("../utils/token");
 
 const userService = {
     findAll: async () => {
@@ -40,9 +40,9 @@ const userService = {
 
         const access_token = generateAccessToken({ userId: user._id });
 
-        console.log(access_token);
+        const refresh_token = generateRefreshToken({ userId: user._id });
 
-        return { user, access_token };
+        return { user, access_token, refresh_token };
     },
 };
 

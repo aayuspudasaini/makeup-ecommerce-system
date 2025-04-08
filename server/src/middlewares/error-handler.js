@@ -1,6 +1,7 @@
 const { ZodError } = require("zod");
 const { HTTP_STATUS } = require("../constants/http.config");
 const { AppError } = require("../exceptions/errors.exceptions");
+const { JsonWebTokenError } = require("jsonwebtoken");
 
 const formatZod = (res, error) => {
     let errors = {};
@@ -32,6 +33,13 @@ const ErrorHandler = (error, req, res, next) => {
             status: false,
             message: error.message,
             errorCode: error.errorCode,
+        });
+    }
+
+    if (error instanceof JsonWebTokenError) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({
+            status: false,
+            message: "Invalid Token",
         });
     }
 

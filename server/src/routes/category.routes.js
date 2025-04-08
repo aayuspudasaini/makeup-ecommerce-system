@@ -18,9 +18,10 @@ catRoute
     .route("/category/:id")
     .get(asyncHandler(CategoryController.getCategoryById))
     .put(
+        identification,
         upload.single("image"),
         asyncHandler(CategoryController.updateCategory)
     )
-    .delete(asyncHandler(CategoryController.deleteCategory));
+    .delete(identification, asyncHandler(CategoryController.deleteCategory));
 
 module.exports = catRoute;
