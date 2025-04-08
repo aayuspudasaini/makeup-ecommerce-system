@@ -16,6 +16,7 @@ async function getAllProducts(req, res, next) {
 
 async function createProduct(req, res, next) {
         // Validate the request body
+        console.log("product data", req.body)
         const validatedData = productSchema.parse({...req.body});
 
         // Create the product

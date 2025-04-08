@@ -10,7 +10,7 @@ prodRoute
     .get(asyncHandler(productController.getAllProducts))
     .post(asyncHandler(
         upload.single("url"),
-        productController.createProduct));
+        productController.createProduct)); 
 
 prodRoute
     .route("/product/:id")
