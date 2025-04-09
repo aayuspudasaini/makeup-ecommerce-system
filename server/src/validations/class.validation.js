@@ -1,7 +1,7 @@
 const { string, object, array, date, enum: zodEnum } = require("zod");
 
-const bookingSchema = object({
-    fullName: string()
+const classBookingSchema = object({
+    name: string()
         .min(1, "Full name is required")
         .max(100, "Full name must not exceed 100 characters"),
     email: string().email("Invalid email address").min(1, "Email is required"),
@@ -36,4 +36,4 @@ const bookingSchema = object({
     ).nonempty("At least one makeup style must be selected"),
 });
 
-module.exports = { bookingSchema };
+module.exports = { classBookingSchema };

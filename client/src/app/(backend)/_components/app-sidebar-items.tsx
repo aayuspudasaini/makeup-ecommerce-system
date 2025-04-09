@@ -2,6 +2,8 @@ import { Home, Settings, LucideIcon, UserRound } from "lucide-react";
 import { IconType } from "react-icons";
 import { TfiLayoutSlider } from "react-icons/tfi";
 import { BiCategoryAlt } from "react-icons/bi";
+import { LuBookText } from "react-icons/lu";
+import { LuCalendarRange } from "react-icons/lu";
 
 interface iNavProps {
     title: string;
@@ -46,8 +48,20 @@ export const NavLinkItems: iNavGroupProps[] = [
     },
     {
         title: "Bookings",
-        href: "/booking",
-        icon: BiCategoryAlt,
+        href: "/bookings",
+        icon: LuBookText,
+        items: [
+            {
+                title: "Appointment",
+                href: "/bookings/appointment",
+                icon: LuCalendarRange,
+            },
+            {
+                title: "Class",
+                href: "/bookings/class",
+                icon: LuCalendarRange,
+            },
+        ],
     },
     {
         title: "Settings",

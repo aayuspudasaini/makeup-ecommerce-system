@@ -2,7 +2,7 @@ const { getEnv } = require("../utils/get-env");
 
 const appConfig = () => ({
     NODE_ENV: getEnv("NODE_ENV", "development"),
-    BASE_URL: getEnv("BASE_URL",),
+    BASE_URL: getEnv("BASE_URL"),
     MONGO_URL: getEnv(
         "MONGO_URL",
         "mongodb://127.0.0.1:27017/makeup-ecommerce"

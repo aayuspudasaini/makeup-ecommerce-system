@@ -1,12 +1,13 @@
 import { AppLogo } from "@/components/app-logo";
 import { Container } from "@/components/global/container";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { CgShoppingBag } from "react-icons/cg";
 import { FaRegHeart } from "react-icons/fa6";
 import React from "react";
 import { LuUserRound } from "react-icons/lu";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export const NavigationBar = () => {
     return (
@@ -21,14 +22,7 @@ export const NavigationBar = () => {
 
                 <div className="hidden md:flex items-center gap-2.5">
                     <ThemeSwitcher />
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="w-8 h-8 cursor-pointer hover:bg-transparent dark:hover:bg-transparent"
-                        title="Wishlist"
-                    >
-                        <FaRegHeart className="size-4" />
-                    </Button>
+
                     <Link passHref href="/signin">
                         <Button
                             variant="ghost"
@@ -48,13 +42,17 @@ export const NavigationBar = () => {
                         <CgShoppingBag className="size-4" />
                     </Button>
 
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className="cursor-pointer border-dashed border-secondary-foreground"
+                    <Link
+                        href="/appointment-booking"
+                        className={cn(
+                            "cursor-pointer border-dashed border-secondary-foreground",
+                            buttonVariants({
+                                size: "sm",
+                            })
+                        )}
                     >
-                        Join Class
-                    </Button>
+                        Schedule an Appointment
+                    </Link>
                 </div>
             </Container>
         </nav>

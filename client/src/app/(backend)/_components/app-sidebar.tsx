@@ -76,7 +76,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                             }
                                         )}
                                     >
-                                        <CollapsibleTrigger>
+                                        <CollapsibleTrigger className="cursor-pointer">
                                             {item.icon && (
                                                 <item.icon className="mr-2 stroke-2" />
                                             )}

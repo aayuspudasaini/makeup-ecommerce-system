@@ -14,12 +14,16 @@ import { Control, useFormState } from "react-hook-form";
 import { LucideIcon } from "lucide-react";
 import { IconType } from "react-icons";
 import { Textarea } from "../ui/textarea";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import { SmartDatetimeInput } from "@/components/extensions/smart-date-time-input";
 
 export enum InputType {
     INPUT = "input",
     TEXTAREA = "textarea",
     COLOR = "color",
     EMAIL = "email",
+    PHONENUMBER = "phone_number",
 }
 
 export interface iInputFieldProps {
@@ -122,6 +126,28 @@ const RenderInput = ({
                     required={props.required}
                     disabled={props.disabled}
                 />
+            );
+
+        case InputType.PHONENUMBER:
+            return (
+                <FormControl>
+                    <PhoneInput
+                        className={cn(
+                            "h-10 rounded-md px-3 border text-sm",
+                            errors[name]
+                                ? " border-red-500 dark:border-red-500"
+                                : "border-gray-300/70 dark:border-gray-300/20"
+                        )}
+                        value={field.value}
+                        onChange={field.onChange}
+                        withCountryCallingCode
+                        international
+                        country="NP"
+                        defaultCountry="NP"
+                        countries={["NP"]}
+                        addInternationalOption={false}
+                    />
+                </FormControl>
             );
 
         default:

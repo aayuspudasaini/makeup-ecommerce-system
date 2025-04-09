@@ -1,11 +1,13 @@
 const { Router } = require("express");
 const { asyncHandler } = require("../middlewares/async-handler");
+const {
+    AppointmentBookingController,
+} = require("../controllers/appointment-booking.controller");
+const appointment = Router();
 
-const booking = Router();
-
-booking
+appointment
     .route("/")
-    .get(asyncHandler(BookingCo.getAll))
+    .get(asyncHandler(AppointmentBookingController.getAll))
     .post(asyncHandler(AppointmentBookingController.create));
 
 appointment

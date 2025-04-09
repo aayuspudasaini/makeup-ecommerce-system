@@ -1,6 +1,10 @@
 import { z } from "zod";
 import API from "./axios-client";
-import { SignInSchema, SignUpSchema } from "./validation";
+import {
+    appointmentBookingSchema,
+    SignInSchema,
+    SignUpSchema,
+} from "./validation";
 
 /**
  * @desc All of the authentication routes are handled here
@@ -20,11 +24,10 @@ export const signIn = async (data: z.infer<typeof SignInSchema>) =>
 
 export const getAllUser = async () => await API.get("/users");
 
-
 /**
  * @description This file contains all the API routes related to carousel management.
  * These routes allow for the retrieval, creation, updating, and deletion of carousel.
- * 
+ *
  * @method GET - Retrieves a list of all carousel.
  * @method POST - Creates a new carousel.
  * @method GET - Retrieves a specific carousel by its ID.
@@ -34,22 +37,24 @@ export const getAllUser = async () => await API.get("/users");
 
 export const getAllCarousel = async () => await API.get("/carousel");
 
-export const createCarouselMutationFn = async (formData: FormData) => await API.post("/carousel", formData);
+export const createCarouselMutationFn = async (formData: FormData) =>
+    await API.post("/carousel", formData);
 
-export const getCarouselById = async (id: string) => await API.get(`/carousel/${id}`);
+export const getCarouselById = async (id: string) =>
+    await API.get(`/carousel/${id}`);
 
-export const updateCarouselMutationFn = async (id: string, formData: FormData) => await API.patch(`/carousel/${id}`, formData);
+export const updateCarouselMutationFn = async (
+    id: string,
+    formData: FormData
+) => await API.patch(`/carousel/${id}`, formData);
 
-export const deleteCarouselMutationFn = async (id: string) => await API.delete(`/carousel/${id}`);
-
-
-
-
+export const deleteCarouselMutationFn = async (id: string) =>
+    await API.delete(`/carousel/${id}`);
 
 /**
  * @description This file contains all the API routes related to category management.
  * These routes allow for the retrieval, creation, updating, and deletion of categories.
- * 
+ *
  * @method GET - Retrieves a list of all categories.
  * @method POST - Creates a new category.
  * @method GET - Retrieves a specific category by its ID.
@@ -59,29 +64,53 @@ export const deleteCarouselMutationFn = async (id: string) => await API.delete(`
 
 export const getAllCategory = async () => await API.get("/category");
 
-export const createCategoryMutationFn = async (formData: FormData) => await API.post("/category", formData);
+export const createCategoryMutationFn = async (formData: FormData) =>
+    await API.post("/category", formData);
 
-export const getCategoryById = async (id: string) => await API.get(`/category/${id}`);
+export const getCategoryById = async (id: string) =>
+    await API.get(`/category/${id}`);
 
-export const updateCategoryMutationFn = async (id: string, formData: FormData) => await API.patch(`/category/${id}`, formData);
+export const updateCategoryMutationFn = async (
+    id: string,
+    formData: FormData
+) => await API.patch(`/category/${id}`, formData);
 
-export const deleteCategoryMutationFn = async (id: string) => await API.delete(`/category/${id}`);
+export const deleteCategoryMutationFn = async (id: string) =>
+    await API.delete(`/category/${id}`);
 
 /**
- * @description All the routes that are been carried out for carousels are listed below:
- * @method GET
+ * @description This file contains all the API routes related to appointment management.
+ * These routes allow for the retrieval, creation, updating, and deletion of appointment.
+ *
+ * @method GET - Retrieves a list of all appointment.
+ * @method POST - Creates a new appointment.
+ * @method GET - Retrieves a specific appointment by its ID.
+ * @method PATCH - Updates an existing appointment by its ID.
+ * @method DELETE - Deletes a appointment by its ID.
  */
 
-// GET Carousel
+export const getAllAppointment = async () => await API.get("/appointment");
 
+export const createAppointmentMutationFn = async (
+    data: z.infer<typeof appointmentBookingSchema>
+) => await API.post("/appointment", data);
 
-// POST Carousel
-// export const createC = async () => await API.get("/carousel");
+export const getAppointmentById = async (id: string) =>
+    await API.get(`/appointment/${id}`);
 
-// UPDATE Carousel
+export const deleteAppointmentMutationFn = async (id: string) =>
+    await API.delete(`/appointment/${id}`);
 
-// DELETE Carousel
+// export const getCategoryById = async (id: string) =>
+//     await API.get(`/category/${id}`);
 
+// export const updateCategoryMutationFn = async (
+//     id: string,
+//     formData: FormData
+// ) => await API.patch(`/category/${id}`, formData);
+
+// export const deleteCategoryMutationFn = async (id: string) =>
+//     await API.delete(`/category/${id}`);
 
 export const uploadMutationFn = async (data: any) => {
     console.log("API FROM FRONTEND", data);
