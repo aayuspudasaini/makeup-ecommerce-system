@@ -4,7 +4,7 @@ import { TfiLayoutSlider } from "react-icons/tfi";
 import { BiCategoryAlt } from "react-icons/bi";
 import { LuBookText } from "react-icons/lu";
 import { LuCalendarRange } from "react-icons/lu";
-
+import { RiUserAddLine } from "react-icons/ri";
 interface iNavProps {
     title: string;
     href: string;
@@ -59,7 +59,7 @@ export const NavLinkItems: iNavGroupProps[] = [
             {
                 title: "Class",
                 href: "/bookings/class",
-                icon: LuCalendarRange,
+                icon: RiUserAddLine,
             },
         ],
     },

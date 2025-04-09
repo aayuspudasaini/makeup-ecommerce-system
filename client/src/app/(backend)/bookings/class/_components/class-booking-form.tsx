@@ -5,17 +5,26 @@ import { InputField, InputType } from "@/components/reusable/input-field";
 import { SelectField, SelectType } from "@/components/reusable/select-field";
 import { Card, CardContent } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { createClassMutationFn } from "@/lib/api";
+import { createClassMutationFn, updateClassMutationFn } from "@/lib/api";
 import { classBookingSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
 type ClassBookingType = z.infer<typeof classBookingSchema>;
 
-export const ClassBookingForm = () => {
+interface iFormProps {
+    type: "create" | "edit";
+    res?: any;
+    id?: string | undefined;
+}
+
+export const ClassBookingForm: React.FC<iFormProps> = ({ type, res, id }) => {
+    const router = useRouter();
     const form = useForm<ClassBookingType>({
         mode: "onChange",
         defaultValues: {
@@ -30,12 +39,17 @@ export const ClassBookingForm = () => {
     });
 
     const { mutate, isPending } = useMutation({
-        mutationFn: createClassMutationFn,
+        mutationFn:
+            type === "create"
+                ? createClassMutationFn
+                : (data: ClassBookingType) =>
+                      updateClassMutationFn(id as string, data),
     });
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: ClassBookingType) => {
         mutate(data, {
             onSuccess: ({ data }) => {
+                router.replace("/bookings/class");
                 form.reset();
                 toast.success(data?.message);
             },
@@ -44,9 +58,20 @@ export const ClassBookingForm = () => {
             },
         });
     };
+
+    React.useEffect(() => {
+        if (res) {
+            form.setValue("name", res.name);
+            form.setValue("email", res.email);
+            form.setValue("phone", res.phone);
+            form.setValue("experience", res.experience);
+            form.setValue("makeupStyle", res.makeupStyle);
+            form.setValue("shift", res.shift);
+        }
+    }, [form, res]);
     return (
-        <Card className="w-full h-auto">
-            <CardContent>
+        <Card className="rounded-lg p-0">
+            <CardContent className="p-4">
                 <Form {...form}>
                     <form
                         className="space-y-4"
@@ -125,9 +150,17 @@ export const ClassBookingForm = () => {
                             }))}
                         />
 
-                        <CustomButton isExecuting={isPending} type="submit">
-                            Submit
-                        </CustomButton>
+                        <div className="col-span-full flex justify-end gap-x-4 border-t pt-4">
+                            <CustomButton
+                                variant="secondary"
+                                onClick={() => router.back()}
+                            >
+                                Cancel
+                            </CustomButton>
+                            <CustomButton isExecuting={isPending} type="submit">
+                                {type === "edit" ? "Update" : "Submit"}
+                            </CustomButton>
+                        </div>
                     </form>
                 </Form>
             </CardContent>

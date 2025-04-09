@@ -27,6 +27,11 @@ const passwordSchema = string({ required_error: `Password is required` })
         `Password must contain at least one special character.`
     );
 
+const phoneNumberSchema = string().regex(
+    /^\+977(98|97)\d{8}$/g,
+    "Please add a valid phone number"
+);
+
 const FileSchema = z
     .instanceof(File)
     .refine(
@@ -48,4 +53,5 @@ module.exports = {
     emailSchema,
     passwordSchema,
     FileSchema,
+    phoneNumberSchema,
 };

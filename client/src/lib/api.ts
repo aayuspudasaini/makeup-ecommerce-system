@@ -2,6 +2,7 @@ import { z } from "zod";
 import API from "./axios-client";
 import {
     appointmentBookingSchema,
+    classBookingSchema,
     SignInSchema,
     SignUpSchema,
 } from "./validation";
@@ -101,16 +102,36 @@ export const getAppointmentById = async (id: string) =>
 export const deleteAppointmentMutationFn = async (id: string) =>
     await API.delete(`/appointment/${id}`);
 
-// export const getCategoryById = async (id: string) =>
-//     await API.get(`/category/${id}`);
 
-// export const updateCategoryMutationFn = async (
-//     id: string,
-//     formData: FormData
-// ) => await API.patch(`/category/${id}`, formData);
+/**
+ * @description This file contains all the API routes related to class booking management.
+ * These routes allow for the retrieval, creation, updating, and deletion of class booking.
+ *
+ * @method GET - Retrieves a list of all class booking.
+ * @method POST - Creates a new class booking.
+ * @method GET - Retrieves a specific class booking by its ID.
+ * @method PATCH - Updates an existing class booking by its ID.
+ * @method DELETE - Deletes a class booking by its ID.
+ */
 
-// export const deleteCategoryMutationFn = async (id: string) =>
-//     await API.delete(`/category/${id}`);
+export const getAllClass = async () => await API.get("/class");
+
+export const createClassMutationFn = async (
+    data: z.infer<typeof classBookingSchema>
+) => await API.post("/class", data);
+
+export const getClassById = async (id: string) =>
+    await API.get(`/class/${id}`);
+
+export const updateClassMutationFn = async (
+    id: string,
+    data: z.infer<typeof classBookingSchema>
+) => await API.patch(`/class/${id}`, data);
+
+
+export const deleteClassMutationFn = async (id: string) =>
+    await API.delete(`/class/${id}`);
+
 
 export const uploadMutationFn = async (data: any) => {
     console.log("API FROM FRONTEND", data);

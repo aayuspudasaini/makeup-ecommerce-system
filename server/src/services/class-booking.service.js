@@ -15,11 +15,11 @@ async function create(data) {
 }
 
 async function findById(id) {
-    const appointment = await ClassBooking.findById(id);
+    const data = await ClassBooking.findById(id);
 
-    if (!appointment) throw new BadRequestException("Data not found.");
+    if (!data) throw new BadRequestException("Data not found.");
 
-    return appointment;
+    return data;
 }
 
 async function update(id, data) {

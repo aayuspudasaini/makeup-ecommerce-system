@@ -111,9 +111,6 @@ const RenderSelectField = ({
                     </SelectContent>
                 </Select>
             );
-
-        case SelectType.MULTISELECT:
-
         case SelectType.SEARCHABLE:
             return (
                 <Popover open={open} onOpenChange={setOpen}>

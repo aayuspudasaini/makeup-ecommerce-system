@@ -20,12 +20,12 @@ const classBookingModel = new mongoose.Schema(
         },
         experience: {
             type: String,
-            enum: ["Begineer", "Intermediate", "Advanced"],
+            enum: ["Beginner", "Intermediate", "Advanced"],
             required: true,
         },
         shift: {
             type: String,
-            enum: ["morning", "day", "evening"],
+            enum: ["Morning", "Day", "Evening"],
             required: true,
         },
         makeupStyle: {
