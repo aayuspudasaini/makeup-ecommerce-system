@@ -5,6 +5,7 @@ const {
 const { successResponse } = require("../utils/success.response");
 const {
     appointmentBookingSchema,
+    scheduleValidation,
 } = require("../validations/appointment.validation");
 
 async function getAll(req, res, next) {
@@ -19,7 +20,9 @@ async function getAll(req, res, next) {
 }
 
 async function create(req, res) {
-    const result = appointmentBookingSchema.parse({ ...req.body });
+    const result = appointmentBookingSchema.parse({
+        ...req.body,
+    });
 
     const data = await appointmentBookingService.create(result);
 
@@ -44,21 +47,23 @@ async function getById(req, res) {
     );
 }
 
-// async function update(req, res) {
-//     const { id } = req.params;
+async function update(req, res) {
+    const { id } = req.params;
 
-//     const result = categorySchema.parse({ ...req.body });
+    const result = scheduleValidation.parse({
+        ...req.body,
+    });
 
-//     const data = await categoryService.update(id, result);
+    const data = await appointmentBookingService.update(id, result);
 
-//     successResponse(
-//         res,
-//         HTTP_STATUS.OK,
-//         true,
-//         data,
-//         "Data Updated successfully."
-//     );
-// }
+    successResponse(
+        res,
+        HTTP_STATUS.OK,
+        true,
+        data,
+        "Data Updated successfully."
+    );
+}
 
 async function remove(req, res) {
     const { id } = req.params;
@@ -76,6 +81,6 @@ module.exports.AppointmentBookingController = {
     getAll,
     create,
     getById,
-    // update,
+    update,
     remove,
 };

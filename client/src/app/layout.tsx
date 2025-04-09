@@ -38,8 +38,11 @@ export default function RootLayout({
                         position="top-right"
                     />
                     <TailwindIndicator position="bottomLeft" />
-                    <ModalProvider />
-                    <QueryProvider>{children}</QueryProvider>
+
+                    <QueryProvider>
+                        {children}
+                        <ModalProvider />
+                    </QueryProvider>
                 </ThemeProvider>
             </body>
         </html>

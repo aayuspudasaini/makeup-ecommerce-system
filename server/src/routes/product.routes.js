@@ -13,7 +13,7 @@ prodRoute
 prodRoute
     .route("/:id")
     .get(asyncHandler(productController.getProductById))
-    .patch(upload.single("url"),asyncHandler( productController.updateProduct))
+    .patch(upload.single("url"), asyncHandler(productController.updateProduct))
     .delete(asyncHandler(productController.deleteProduct));
 
 prodRoute

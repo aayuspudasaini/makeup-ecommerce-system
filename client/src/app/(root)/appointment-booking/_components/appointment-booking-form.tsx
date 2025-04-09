@@ -1,5 +1,4 @@
 "use client";
-
 import { CustomButton } from "@/components/reusable/custom-button";
 import { DateTimePicker } from "@/components/reusable/date-time-picker";
 import { InputField, InputType } from "@/components/reusable/input-field";
@@ -14,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-type AppointmentBookingType = z.infer<typeof appointmentBookingSchema>;
+export type AppointmentBookingType = z.infer<typeof appointmentBookingSchema>;
 
 export const AppointmentBookingForm = () => {
     const form = useForm<AppointmentBookingType>({
@@ -30,11 +29,11 @@ export const AppointmentBookingForm = () => {
         resolver: zodResolver(appointmentBookingSchema),
     });
 
-    const { mutate, isPending } = useMutation({
+    const { mutate, isPending, error } = useMutation({
         mutationFn: createAppointmentMutationFn,
     });
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: AppointmentBookingType) => {
         mutate(data, {
             onSuccess: ({ data }) => {
                 form.reset();
@@ -45,6 +44,7 @@ export const AppointmentBookingForm = () => {
             },
         });
     };
+
     return (
         <Card className="w-full h-auto">
             <CardContent>

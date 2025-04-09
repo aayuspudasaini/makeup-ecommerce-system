@@ -13,6 +13,7 @@ appointment
 appointment
     .route("/:id")
     .get(asyncHandler(AppointmentBookingController.getById))
+    .patch(asyncHandler(AppointmentBookingController.update))
     .delete(asyncHandler(AppointmentBookingController.remove));
 
 module.exports = appointment;

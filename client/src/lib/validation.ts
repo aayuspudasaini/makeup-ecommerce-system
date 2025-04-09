@@ -150,7 +150,27 @@ export const appointmentBookingSchema = object({
     preferredDateTime: z.date({
         required_error: "Preferred date and time is required",
     }),
+    status: z
+        .enum(["pending", "confirmed"], {
+            errorMap: () => ({
+                message: "status must be pending or confirmed",
+            }),
+        })
+        .optional(),
 });
+
+export const scheduleValidation = z.object({
+    preferredDateTime: z.date({
+        required_error: "Preferred date and time is required",
+    }),
+    status: z.enum(["pending", "not confirmed", "confirmed"], {
+        errorMap: () => ({
+            message: "status must be pending, not confirmed or confirmed",
+        }),
+    }),
+});
+
+export type ScheduleType = z.infer<typeof scheduleValidation>;
 
 export const classBookingSchema = object({
     name: string().min(1, "Name is required"),
@@ -165,21 +185,24 @@ export const classBookingSchema = object({
                 "Experience level must be Beginner, Intermediate, or Advanced",
         }),
     }),
-    makeupStyle: z.enum([
-        "Bridal",
-        "Everyday Makeup",
-        "Party Look",
-        "Professional Makeup",
-        "Custom",
-    ], {
-        errorMap: () => ({
-            message: "Makeup style must be Bridal,Everyday Makeup,Party Look, Professional Makeup or Custom"
-        })
-    }),
+    makeupStyle: z.enum(
+        [
+            "Bridal",
+            "Everyday Makeup",
+            "Party Look",
+            "Professional Makeup",
+            "Custom",
+        ],
+        {
+            errorMap: () => ({
+                message:
+                    "Makeup style must be Bridal,Everyday Makeup,Party Look, Professional Makeup or Custom",
+            }),
+        }
+    ),
     shift: zodEnum(["Morning", "Day", "Evening"], {
         errorMap: () => ({
-            message:
-                "Shift must be Morning, Day, or Evening",
+            message: "Shift must be Morning, Day, or Evening",
         }),
-    })
+    }),
 });

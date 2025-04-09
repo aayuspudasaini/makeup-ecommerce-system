@@ -12,8 +12,6 @@ const classRoutes = require("./class-booking.routes");
 const router = Router();
 
 router.use("/", catRoute);
-// router.use("/booking", bookroute);
-
 router.use("/", carouselRoute);
 router.use("/", userRoute);
 router.use("/products", prodRoute);

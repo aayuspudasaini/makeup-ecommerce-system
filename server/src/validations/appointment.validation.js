@@ -16,7 +16,16 @@ const appointmentBookingSchema = object({
         "Professional Makeup",
         "Custom",
     ]),
-    preferredDateTime: z.string(),
+    preferredDateTime: string().min(1, "Date and Time is required"),
 });
 
-module.exports = { appointmentBookingSchema };
+const scheduleValidation = z.object({
+    preferredDateTime: string().min(1, "Date and Time is required"),
+    status: z.enum(["pending", "not confirmed", "confirmed"], {
+        errorMap: () => ({
+            message: "status must be pending,not confirmed or confirmed",
+        }),
+    }),
+});
+
+module.exports = { appointmentBookingSchema, scheduleValidation };

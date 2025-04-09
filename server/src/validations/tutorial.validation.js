@@ -10,12 +10,12 @@ const tutorialSchema = object({
     product: string()
         .min(1, "Product ID is required")
         .regex(/^[a-fA-F0-9]{24}$/, "Invalid Product ID format"), // MongoDB ObjectId validation
-        videos: array(
-            object({
-                path: string().min(1, "Video path is required"), // Path to the video file on disk
-                filename: string().min(1, "Filename is required"), // Unique filename
-                contentType: string().min(1, "Content type is required"), // MIME type of the video
-            })
+    videos: array(
+        object({
+            path: string().min(1, "Video path is required"), // Path to the video file on disk
+            filename: string().min(1, "Filename is required"), // Unique filename
+            contentType: string().min(1, "Content type is required"), // MIME type of the video
+        })
     )
         .min(1, "At least one video is required")
         .max(5, "You can upload up to 5 videos"),

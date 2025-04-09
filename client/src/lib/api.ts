@@ -3,6 +3,7 @@ import API from "./axios-client";
 import {
     appointmentBookingSchema,
     classBookingSchema,
+    scheduleValidation,
     SignInSchema,
     SignUpSchema,
 } from "./validation";
@@ -99,9 +100,13 @@ export const createAppointmentMutationFn = async (
 export const getAppointmentById = async (id: string) =>
     await API.get(`/appointment/${id}`);
 
+export const updateAppointmentMutationFn = async (
+    id: string,
+    data: z.infer<typeof scheduleValidation>
+) => await API.patch(`/appointment/${id}`, data);
+
 export const deleteAppointmentMutationFn = async (id: string) =>
     await API.delete(`/appointment/${id}`);
-
 
 /**
  * @description This file contains all the API routes related to class booking management.
@@ -120,18 +125,15 @@ export const createClassMutationFn = async (
     data: z.infer<typeof classBookingSchema>
 ) => await API.post("/class", data);
 
-export const getClassById = async (id: string) =>
-    await API.get(`/class/${id}`);
+export const getClassById = async (id: string) => await API.get(`/class/${id}`);
 
 export const updateClassMutationFn = async (
     id: string,
     data: z.infer<typeof classBookingSchema>
 ) => await API.patch(`/class/${id}`, data);
 
-
 export const deleteClassMutationFn = async (id: string) =>
     await API.delete(`/class/${id}`);
-
 
 export const uploadMutationFn = async (data: any) => {
     console.log("API FROM FRONTEND", data);

@@ -2,7 +2,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { EllipsisIcon, Trash2 } from "lucide-react";
-
 import {
     DropdownMenuContent,
     DropdownMenu,
@@ -21,6 +20,11 @@ import { deleteAppointmentMutationFn } from "@/lib/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useDataStore } from "@/hooks/use-data-store";
+import { AppointmentBookingType } from "@/app/(root)/appointment-booking/_components/appointment-booking-form";
+import { LuCalendarRange } from "react-icons/lu";
+import { z } from "zod";
+import { ScheduleType, scheduleValidation } from "@/lib/validation";
 
 interface iColumnProps {
     _id: string;
@@ -35,12 +39,15 @@ interface iColumnProps {
     updatedAt: Date;
 }
 
-const TableAction = ({ id }: { id: string }) => {
+const TableAction = ({ id, data }: { id: string; data: ScheduleType }) => {
     const router = useRouter();
     const { mutate } = useMutation({
         mutationFn: deleteAppointmentMutationFn,
     });
+
     const { onOpen } = useModalHook();
+
+    const { onOpen: scheduleOpen } = useDataStore();
 
     const DeleteData = async () => {
         mutate(id, {
@@ -63,16 +70,16 @@ const TableAction = ({ id }: { id: string }) => {
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {/* <DropdownMenuItem
+                <DropdownMenuItem
                     variant="default"
-                    className=" w-full cursor-pointer  text-blue-700 focus:text-blue-700 focus:bg-blue-700/20"
-                    asChild
+                    className=" w-full cursor-pointer  text-green-700 focus:text-green-700 focus:bg-green-700/20"
+                    onClick={() =>
+                        scheduleOpen("appointmentModal", { id, data })
+                    }
                 >
-                    <Link href={`/category/${id}/edit`}>
-                        <SquarePen className="w-4 h-4 text-blue-700 focus:text-blue-700 focus:bg-blue-700/20" />
-                        Edit
-                    </Link>
-                </DropdownMenuItem> */}
+                    <LuCalendarRange className="w-4 h-4 text-green-700 focus:text-green-700 focus:bg-green-700/20" />
+                    Schedule
+                </DropdownMenuItem>
                 <DropdownMenuItem
                     className="w-full cursor-pointer text-red-600 focus:text-red-600  focus:bg-red-600/20"
                     asChild
@@ -177,9 +184,11 @@ export const appointmentColumn = [
         cell: (props) => (
             <Badge
                 className={cn(
-                    "flex justify-center w-16 truncate rounded-full bg-transparent",
+                    "flex justify-center w-fit truncate text-xs px-2.5 rounded-full bg-transparent",
                     {
                         "bg-gray-700/20 border-2 border-gray-700 text-gray-700 hover:bg-gray-700/20":
+                            props.getValue() === "not confirmed",
+                        "bg-yellow-500/20 border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500/20":
                             props.getValue() === "pending",
                         "bg-green-600/20 border-2 border-green-600 text-green-600 hover:bg-green-600/20":
                             props.getValue() === "confirmed",
@@ -241,7 +250,12 @@ export const appointmentColumn = [
                 </DropdownMenu>
             );
         },
-        cell: ({ row }) => <TableAction id={row.original._id} />,
+        cell: ({ row }) => (
+            <TableAction
+                id={row.original._id}
+                data={row.original as ScheduleType}
+            />
+        ),
         maxSize: 50,
     }),
 ] as ColumnDef<iColumnProps, unknown>[];

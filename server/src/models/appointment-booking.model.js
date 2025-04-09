@@ -36,11 +36,11 @@ const appointmentBookingSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ["pending", "confirmed"],
+            enum: ["pending", "not confirmed", "confirmed"],
             default: "pending",
         },
         preferredDateTime: {
-            type: Date,
+            type: String,
         },
     },
     { timestamps: true }

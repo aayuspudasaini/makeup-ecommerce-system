@@ -11,7 +11,11 @@ const tutorialSchema = new Schema(
                 contentType: { type: String, required: true }, // MIME type of the video (e.g., "video/mp4")
             },
         ], // Array of videos
-        product: { type: Schema.Types.ObjectId, ref: "Product", required: true }, // Reference to the associated product
+        product: {
+            type: Schema.Types.ObjectId,
+            ref: "Product",
+            required: true,
+        }, // Reference to the associated product
     },
     {
         timestamps: true, // Automatically add createdAt and updatedAt fields

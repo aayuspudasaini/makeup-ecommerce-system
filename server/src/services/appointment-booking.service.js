@@ -37,6 +37,7 @@ async function update(id, data) {
 
     return updatedData;
 }
+
 async function remove(id) {
     const deletedData = await AppointmentBooking.findByIdAndDelete(id);
 

@@ -15,6 +15,6 @@ tutoRoute
 
 tutoRoute
     .route("/tutorial/:id")
-    .delete(asyncHandler(tutorialController.deleteTutorial)); 
+    .delete(asyncHandler(tutorialController.deleteTutorial));
 
 module.exports = tutoRoute;
