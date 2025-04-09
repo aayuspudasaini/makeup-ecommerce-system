@@ -16,4 +16,4 @@ classRoutes
     .patch(asyncHandler(ClassBookingController.update))
     .delete(asyncHandler(ClassBookingController.remove));
 
-module.exports = appointment;
+module.exports = classRoutes;

@@ -1,10 +1,17 @@
 const crypto = require("crypto");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "./public/uploads");
+        const dirName = "./public/uploads";
+        fs.mkdir(dirName, { recursive: true }, (err) => {
+            if (err) {
+                return cb(err);
+            }
+            cb(null, dirName);
+        });
     },
 
     filename: function (req, file, cb) {
