@@ -65,7 +65,7 @@ const TableAction = ({ id }: { id: string }) => {
                     className=" w-full cursor-pointer  text-blue-700 focus:text-blue-700 focus:bg-blue-700/20"
                     asChild
                 >
-                    <Link href={`/slider/${id}/edit`}>
+                    <Link href={`/category/${id}/edit`}>
                         <SquarePen className="w-4 h-4 text-blue-700 focus:text-blue-700 focus:bg-blue-700/20" />
                         Edit
                     </Link>

@@ -24,14 +24,29 @@ export const NavLinkItems: iNavGroupProps[] = [
     },
 
     {
-        title: "Slider",
-        href: "/slider",
+        title: "Carousel",
+        href: "/carousel",
         icon: TfiLayoutSlider,
     },
 
     {
         title: "Category",
         href: "/category",
+        icon: BiCategoryAlt,
+    },
+    {
+        title: "Product",
+        href: "/product",
+        icon: BiCategoryAlt,
+    },
+    {
+        title: "Order",
+        href: "/order",
+        icon: BiCategoryAlt,
+    },
+    {
+        title: "Bookings",
+        href: "/booking",
         icon: BiCategoryAlt,
     },
     {

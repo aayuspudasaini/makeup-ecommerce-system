@@ -81,7 +81,7 @@ const RenderSelectField = ({
                     <FormControl>
                         <SelectTrigger
                             className={cn(
-                                "input-field data-[placeholder]:text-muted-foreground",
+                                "input-field data-[placeholder]:text-muted-foreground w-full",
                                 errors[name]
                                     ? "border-red-500 dark:border-red-500"
                                     : "border-gray-300/70 dark:border-gray-300/20"
@@ -96,7 +96,7 @@ const RenderSelectField = ({
                                 Select a {name}
                             </SelectLabel>
                             <SelectSeparator />
-                            <ScrollArea className="min-h-32 h-52 max-h-[200px]">
+                            <ScrollArea className="min-h-auto h-auto max-h-[200px]">
                                 {options.map((item, i) => (
                                     <SelectItem
                                         className="cursor-pointer"

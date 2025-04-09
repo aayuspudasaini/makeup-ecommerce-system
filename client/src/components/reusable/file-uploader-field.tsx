@@ -17,7 +17,6 @@ import { DropzoneOptions } from "react-dropzone";
 import { cn } from "@/lib/utils";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
-
 interface iFieldProps {
     name: string;
     label: string;
@@ -58,28 +57,44 @@ export const FileUploaderField: React.FC<iFieldProps> = ({
                         >
                             {field.value && field.value.length > 0 && (
                                 <FileUploaderContent className="w-full rounded-b-none rounded-t-md flex-row gap-2 ">
-                                    {field.value.map((file: any, i: number) => (
-                                        <FileUploaderItem
-                                            key={i}
-                                            index={i}
-                                            aria-roledescription={`file ${i + 1} containing ${
-                                                file.name
-                                            }`}
-                                            className="p-0 size-20"
-                                        >
-                                            <div className="size-full relative">
-                                                <Image
-                                                    src={URL.createObjectURL(
-                                                        file
-                                                    )}
-                                                    alt={file.name}
-                                                    className="object-cover rounded-md"
-                                                    fill
-                                                    priority
-                                                />
-                                            </div>
-                                        </FileUploaderItem>
-                                    ))}
+                                    {field.value.map((file: any, i: number) => {
+                                        return (
+                                            <FileUploaderItem
+                                                key={i}
+                                                index={i}
+                                                aria-roledescription={`file ${i + 1} containing ${
+                                                    file.name
+                                                }`}
+                                                className="p-0 size-20"
+                                            >
+                                                {file.type.includes("video") ? (
+                                                    <div className="size-full  relative">
+                                                        <video
+                                                            className="h-full w-auto object-cover rounded-md"
+                                                            width={600}
+                                                            height={400}
+                                                            src={URL.createObjectURL(
+                                                                file
+                                                            )}
+                                                            autoPlay
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <div className="size-full relative">
+                                                        <Image
+                                                            src={URL.createObjectURL(
+                                                                file
+                                                            )}
+                                                            alt={file.name}
+                                                            className="object-cover rounded-md"
+                                                            fill
+                                                            priority
+                                                        />
+                                                    </div>
+                                                )}
+                                            </FileUploaderItem>
+                                        );
+                                    })}
                                 </FileUploaderContent>
                             )}
                             <FileInput>

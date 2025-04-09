@@ -74,7 +74,7 @@ export const HeroSection = () => {
                                 {item.type === "image" ? (
                                     <Image
                                         className="w-full h-full object-cover"
-                                        src={`http://localhost:8000/${item.url}`}
+                                        src={`http://localhost:8000/${item.content}`}
                                         alt={item.title}
                                         width={1280}
                                         height={1080}
@@ -84,7 +84,7 @@ export const HeroSection = () => {
                                     <video
                                         ref={videoRef}
                                         className="h-auto w-full object-cover"
-                                        src={`http://localhost:8000/${item.url}`}
+                                        src={`http://localhost:8000/${item.content}`}
                                         width={1200}
                                         height={800}
                                         autoPlay

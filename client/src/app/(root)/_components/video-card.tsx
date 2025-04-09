@@ -44,6 +44,7 @@ export const VideoCard: React.FC<iVideoProps> = ({
                     height={height}
                     src={url}
                     muted
+                    autoPlay
                 />
             </div>
             {button && (

@@ -14,7 +14,7 @@ const carouselSchema = new Schema(
             enum: ["image", "video"],
             required: true,
         },
-        url: {
+        content: {
             type: String,
         },
     },

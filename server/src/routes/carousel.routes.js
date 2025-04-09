@@ -9,7 +9,7 @@ carouselRoute
     .route("/carousel")
     .get(asyncHandler(carouselController.getAllCarousel))
     .post(
-        upload.single("url"),
+        upload.single("content"),
         asyncHandler(carouselController.createCarousel)
     );
 
@@ -17,7 +17,7 @@ carouselRoute
     .route("/carousel/:id")
     .get(asyncHandler(carouselController.getCarouselById))
     .patch(
-        upload.single("url"),
+        upload.single("content"),
         asyncHandler(carouselController.updateCarousel)
     )
     .delete(asyncHandler(carouselController.deleteCarousel));

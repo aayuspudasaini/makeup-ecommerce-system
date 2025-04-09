@@ -29,7 +29,7 @@ async function getBySlug(slug) {
     return categories;
 }
 
-async function getById(id) {
+async function findById(id) {
     const category = await Category.findById(id);
 
     if (!category) throw new BadRequestException("Category not found.");
@@ -38,17 +38,13 @@ async function getById(id) {
 }
 
 async function update(id, data) {
-    const slug = slugify(data.name);
-
-    const isExist = await Category.exists({ slug });
-
-    if (isExist) throw new BadRequestException("Category Already exists.");
-
     const updatedData = await Category.findByIdAndUpdate(
         id,
-        { slug, ...data },
+        { ...data },
         { new: true }
     );
+
+    if (!updatedData) throw new BadRequestException("Failed to updata data.");
 
     return updatedData;
 }
@@ -64,4 +60,7 @@ module.exports.categoryService = {
     findAll,
     create,
     remove,
+    findById,
+    update,
+    getBySlug,
 };

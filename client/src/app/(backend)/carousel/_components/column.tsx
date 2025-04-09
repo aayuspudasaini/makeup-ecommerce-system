@@ -29,7 +29,7 @@ interface iColumnProps {
     _id: string;
     title: string;
     description: string;
-    url: string;
+    content: string;
     type: string;
     createdAt: Date;
     updatedAt: Date;
@@ -68,7 +68,7 @@ const TableAction = ({ id }: { id: string }) => {
                     className=" w-full cursor-pointer  text-blue-700 focus:text-blue-700 focus:bg-blue-700/20"
                     asChild
                 >
-                    <Link href={`/slider/${id}/edit`}>
+                    <Link href={`/carousel/${id}/edit`}>
                         <SquarePen className="w-4 h-4 text-blue-700 focus:text-blue-700 focus:bg-blue-700/20" />
                         Edit
                     </Link>
@@ -91,7 +91,7 @@ const TableAction = ({ id }: { id: string }) => {
 };
 
 const columnHelper = createColumnHelper<iColumnProps>();
-export const sliderColumn = [
+export const carouselColumn = [
     columnHelper.display({
         id: "select",
         header: ({ table }) => {
@@ -118,7 +118,7 @@ export const sliderColumn = [
             );
         },
     }),
-    columnHelper.accessor("url", {
+    columnHelper.accessor("content", {
         id: "content",
         header: "Content",
         cell: ({ row }) =>
@@ -126,7 +126,7 @@ export const sliderColumn = [
                 <div className="size-20 h-16 aspect-square">
                     <Image
                         className="w-full h-full rounded-md object-cover"
-                        src={`${process.env.NEXT_PUBLIC_BACKEND_ORIGIN_URL}/${row.original.url}`}
+                        src={`${process.env.NEXT_PUBLIC_BACKEND_ORIGIN_URL}/${row.original.content}`}
                         alt={row.original.title}
                         width={1200}
                         height={800}
@@ -134,11 +134,14 @@ export const sliderColumn = [
                     />
                 </div>
             ) : (
-                <VideoCard
-                    button={false}
-                    className="w-20 h-16 md:h-16 aspect-square"
-                    url={`${process.env.NEXT_PUBLIC_BACKEND_ORIGIN_URL}/${row.original.url}`}
-                />
+                <div className="size-20 h-16 aspect-square">
+                    <video
+                        className="h-full w-full object-cover rounded-md"
+                        src={`${process.env.NEXT_PUBLIC_BACKEND_ORIGIN_URL}/${row.original.content}`}
+                        muted
+                        autoPlay
+                    />
+                </div>
             ),
     }),
     columnHelper.accessor("title", {

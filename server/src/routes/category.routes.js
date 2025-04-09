@@ -16,8 +16,8 @@ catRoute
 catRoute
     .route("/category/:id")
     .get(asyncHandler(CategoryController.getCategoryById))
-    .put(
-        identification,
+    .patch(
+        // identification,
         upload.single("image"),
         asyncHandler(CategoryController.updateCategory)
     )

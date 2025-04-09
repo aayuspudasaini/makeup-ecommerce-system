@@ -1,20 +1,20 @@
 "use client";
-
-import React from "react";
-import { DropzoneOptions } from "react-dropzone";
 import { CustomButton } from "@/components/reusable/custom-button";
 import { FileUploaderField } from "@/components/reusable/file-uploader-field";
 import { InputField, InputType } from "@/components/reusable/input-field";
+import { SelectField, SelectType } from "@/components/reusable/select-field";
 import { Card, CardContent } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { createCategoryMutationFn, updateCategoryMutationFn } from "@/lib/api";
-import { categorySchema } from "@/lib/validation";
+import { createCarouselMutationFn } from "@/lib/api";
+import { carouselSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import React from "react";
+import { DropzoneOptions } from "react-dropzone";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { toast } from "sonner";
+import { z } from "zod";
 
 interface iFormProps {
     type: "create" | "edit";
@@ -22,50 +22,48 @@ interface iFormProps {
     id?: string;
 }
 
-type CategoryFormData = z.infer<typeof categorySchema>;
+type CarouselFormType = z.infer<typeof carouselSchema>;
 
-export const CategoryForm: React.FC<iFormProps> = ({ type, res, id }) => {
+export const CarouselForm: React.FC<iFormProps> = ({ type, res, id }) => {
     const router = useRouter();
-
-    const { mutate, isPending } = useMutation({
-        mutationFn:
-            type === "create"
-                ? createCategoryMutationFn
-                : (formData: FormData) =>
-                      updateCategoryMutationFn(id as string, formData),
-    });
-
-    const form = useForm<CategoryFormData>({
+    const form = useForm<CarouselFormType>({
         defaultValues: {
-            name: "",
+            title: "",
             description: "",
-            image: undefined,
+            type: undefined,
+            content: "",
         },
-        resolver: zodResolver(categorySchema),
+        resolver: zodResolver(carouselSchema),
+    });
+    const { mutate, isPending } = useMutation({
+        mutationFn: createCarouselMutationFn,
     });
 
-    const dropzoneConfig = {
+    const dropzoneConfig: DropzoneOptions = {
+        multiple: false,
+        maxFiles: 1,
         accept: {
             "image/*": [".jpg", ".jpeg", ".png"],
+            "video/*": [".mp4", ".mkv"],
         },
-        multiple: false,
-        maxSize: 10 * 1024 * 1024,
-    } satisfies DropzoneOptions;
+    };
 
     React.useEffect(() => {
         form.reset(res);
-        form.setValue("image", "");
+        form.setValue("type", res.type);
+        form.setValue("content", "");
     }, [form, res]);
 
-    const onSubmit = (data: CategoryFormData) => {
+    const onSubmit = (data: CarouselFormType) => {
         const formData = new FormData();
-        formData.append("name", data.name);
+        formData.append("title", data.title);
         formData.append("description", data.description);
-        formData.append("image", data.image ? data.image[0] : null);
+        formData.append("type", data.type);
+        formData.append("content", data.content ? data.content[0] : null);
 
         mutate(formData, {
             onSuccess: ({ data }) => {
-                router.replace("/category");
+                router.replace("/carousel");
                 form.reset();
                 toast.success(data?.message);
             },
@@ -84,11 +82,11 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res, id }) => {
                         onSubmit={form.handleSubmit(onSubmit)}
                     >
                         <InputField
-                            label="Name"
+                            label="Title"
                             control={form.control}
-                            name="name"
+                            name="title"
                             type={InputType.INPUT}
-                            placeholder="Face"
+                            placeholder="Make yourself better than others"
                             disabled={isPending}
                         />
                         <InputField
@@ -99,10 +97,23 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res, id }) => {
                             placeholder="Write something..."
                             disabled={isPending}
                         />
+                        <SelectField
+                            control={form.control}
+                            type={SelectType.SELECT}
+                            label="Type"
+                            className="w-full"
+                            name="type"
+                            placeholder="Select a content type"
+                            options={["Image", "Video"].map((item) => ({
+                                id: item,
+                                label: item,
+                                value: item.toLowerCase(),
+                            }))}
+                        />
                         <FileUploaderField
                             control={form.control}
-                            name="image"
-                            label="Image"
+                            name="content"
+                            label="Image / Video Content"
                             dropzoneConfig={dropzoneConfig}
                             disabled={isPending}
                         />

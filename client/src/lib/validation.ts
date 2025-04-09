@@ -125,7 +125,9 @@ export const categorySchema = object({
 //             { message: "Invalid file type. Only PNG, JPEG, JPG, or MP4 are allowed." })
 // });
 
-export const BlogCommentSchema = object({
-    blogSlug: string().min(1, "Blog is required"),
-    content: string().min(1, "Comment is required"),
+export const carouselSchema = object({
+    title: string().min(1, "Title is required."),
+    description: string().min(1, "Description is required."),
+    type: z.enum(["image", "video"]),
+    content: any(),
 });

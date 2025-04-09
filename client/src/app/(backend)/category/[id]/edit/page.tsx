@@ -1,7 +1,19 @@
 import React from "react";
 import { CategoryForm } from "../../_components/category-form";
+import { getCategoryById } from "@/lib/api";
+import Loading from "@/app/(backend)/loading";
 
-export default async function CategoryEditPage() {
+type Params = { params: Promise<{ id: string }> };
+
+export default async function CategoryEditPage({ params }: Params) {
+    const { id } = await params;
+
+    const { data } = await getCategoryById(id);
+
+    if (!data) {
+        return <Loading />;
+    }
+
     return (
         <React.Fragment>
             <div className="flex flex-row justify-between items-center">
@@ -12,7 +24,7 @@ export default async function CategoryEditPage() {
                     </p>
                 </div>
             </div>
-            <CategoryForm type="edit" />
+            <CategoryForm type="edit" res={data?.data} id={id} />
         </React.Fragment>
     );
 }

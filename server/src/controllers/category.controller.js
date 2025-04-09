@@ -32,25 +32,37 @@ async function createCategory(req, res) {
     );
 }
 
-// async function updateCarousel(req, res) {
-//     const { id } = req.params;
+async function getCategoryById(req, res) {
+    const { id } = req.params;
+    const data = await categoryService.findById(id);
+    successResponse(
+        res,
+        HTTP_STATUS.OK,
+        true,
+        data,
+        "Data Fetched Successfully"
+    );
+}
 
-//     const result = carouselSchema.parse({ ...req.body });
+async function updateCategory(req, res) {
+    const { id } = req.params;
 
-//     if (req.file) {
-//         result.url = req.file.path;
-//     }
+    const result = categorySchema.parse({ ...req.body });
 
-//     const data = await carouselServices.update(id, result);
+    if (req.file) {
+        result.image = req.file.path;
+    }
 
-//     successResponse(
-//         res,
-//         HTTP_STATUS.OK,
-//         true,
-//         data,
-//         "Data Updated successfully."
-//     );
-// }
+    const data = await categoryService.update(id, result);
+
+    successResponse(
+        res,
+        HTTP_STATUS.OK,
+        true,
+        data,
+        "Data Updated successfully."
+    );
+}
 
 async function deleteCategory(req, res) {
     const { id } = req.params;
@@ -67,5 +79,7 @@ async function deleteCategory(req, res) {
 module.exports.CategoryController = {
     getAllCategory,
     createCategory,
+    getCategoryById,
+    updateCategory,
     deleteCategory,
 };
