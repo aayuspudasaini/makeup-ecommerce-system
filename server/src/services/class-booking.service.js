@@ -1,17 +1,13 @@
 const { BadRequestException } = require("../exceptions/errors.exceptions");
-const AppointmentBooking = require("../models/appointment-booking.model");
+const ClassBooking = require("../models/class-booking.model");
 
 async function findAll() {
-    const data = await AppointmentBooking.find({}).sort({ createdAt: 1 });
+    const data = await ClassBooking.find({}).sort({ createdAt: 1 });
     return data;
 }
 
 async function create(data) {
-    const isExist = await AppointmentBooking.exists({
-        email: data.email,
-        preferredDateTime: data.preferredDateTime,
-    });
-    const newData = await AppointmentBooking.create({
+    const newData = await ClassBooking.create({
         ...data,
     });
 
@@ -19,7 +15,7 @@ async function create(data) {
 }
 
 async function findById(id) {
-    const appointment = await AppointmentBooking.findById(id);
+    const appointment = await ClassBooking.findById(id);
 
     if (!appointment) throw new BadRequestException("Data not found.");
 
@@ -27,7 +23,7 @@ async function findById(id) {
 }
 
 async function update(id, data) {
-    const updatedData = await AppointmentBooking.findByIdAndUpdate(
+    const updatedData = await ClassBooking.findByIdAndUpdate(
         id,
         { ...data },
         { new: true }
@@ -38,14 +34,14 @@ async function update(id, data) {
     return updatedData;
 }
 async function remove(id) {
-    const deletedData = await AppointmentBooking.findByIdAndDelete(id);
+    const deletedData = await ClassBooking.findByIdAndDelete(id);
 
     if (!deletedData) throw new BadRequestException("Data not found.");
 
     return deletedData;
 }
 
-module.exports.appointmentBookingService = {
+module.exports.ClassBookingService = {
     findAll,
     create,
     remove,

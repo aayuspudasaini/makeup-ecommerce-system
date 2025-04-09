@@ -33,7 +33,7 @@ const classBookingSchema = object({
                 }),
             }
         )
-    ).nonempty("At least one makeup style must be selected"),
+    ),
 });
 
 module.exports = { classBookingSchema };

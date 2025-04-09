@@ -3,7 +3,7 @@ import { getAllAppointment } from "@/lib/api";
 import { DataTable } from "@/components/table/data-table";
 import { appointmentColumn } from "./_components/column";
 
-export default async function CategoryPage() {
+export default async function AppointmentPage() {
     const { data: res } = await getAllAppointment();
 
     return (

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const appointmentBookingSchema = new mongoose.Schema(
+const classBookingModel = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -18,13 +18,15 @@ const appointmentBookingSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        address: {
+        experience: {
             type: String,
+            enum: ["Begineer", "Intermediate", "Advanced"],
             required: true,
         },
         shift: {
             type: String,
             enum: ["morning", "day", "evening"],
+            required: true,
         },
         makeupStyle: {
             type: String,
@@ -41,9 +43,6 @@ const appointmentBookingSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-const AppointmentBooking = mongoose.model(
-    "AppointmentBooking",
-    appointmentBookingSchema
-);
+const ClassBooking = mongoose.model("classBooking", classBookingModel);
 
-module.exports = AppointmentBooking;
+module.exports = ClassBooking;

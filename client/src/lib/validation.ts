@@ -1,4 +1,4 @@
-import { object, string, boolean, z, any } from "zod";
+import { object, string, boolean, z, any, enum as zodEnum } from "zod";
 
 /**
  * @desc This section contains all the global validation schema
@@ -147,7 +147,9 @@ export const appointmentBookingSchema = object({
         "Professional Makeup",
         "Custom",
     ]),
-    preferredDateTime: z.date(),
+    preferredDateTime: z.date({
+        required_error: "Preferred date and time is required",
+    }),
 });
 
 export const classBookingSchema = object({
@@ -157,13 +159,27 @@ export const classBookingSchema = object({
         /^\+977(98|97)\d{8}$/g,
         "Please add a valid phone number"
     ),
-    experience: z.enum(["Beginner", "Intermediate", "Experience"]),
+    experience: zodEnum(["Beginner", "Intermediate", "Advanced"], {
+        errorMap: () => ({
+            message:
+                "Experience level must be Beginner, Intermediate, or Advanced",
+        }),
+    }),
     makeupStyle: z.enum([
         "Bridal",
         "Everyday Makeup",
         "Party Look",
         "Professional Makeup",
         "Custom",
-    ]),
-    preferredDateTime: z.date(),
+    ], {
+        errorMap: () => ({
+            message: "Makeup style must be Bridal,Everyday Makeup,Party Look, Professional Makeup or Custom"
+        })
+    }),
+    shift: zodEnum(["Morning", "Day", "Evening"], {
+        errorMap: () => ({
+            message:
+                "Shift must be Morning, Day, or Evening",
+        }),
+    })
 });

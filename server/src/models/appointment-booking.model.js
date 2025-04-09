@@ -39,6 +39,9 @@ const appointmentBookingSchema = new mongoose.Schema(
             enum: ["pending", "confirmed"],
             default: "pending",
         },
+        preferredDateTime: {
+            type: Date,
+        },
     },
     { timestamps: true }
 );

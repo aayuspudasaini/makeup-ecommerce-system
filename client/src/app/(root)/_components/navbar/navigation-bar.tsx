@@ -43,7 +43,7 @@ export const NavigationBar = () => {
                     </Button>
 
                     <Link
-                        href="/appointment-booking"
+                        href="/appointment"
                         className={cn(
                             "cursor-pointer border-dashed border-secondary-foreground",
                             buttonVariants({
