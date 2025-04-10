@@ -65,7 +65,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     <SidebarGroupLabel
                                         asChild
                                         className={cn(
-                                            "mb-1.5 group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center",
+                                            "group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center",
                                             {
                                                 "bg-sidebar-accent text-sidebar-accent-foreground":
                                                     item.items.some(
@@ -85,7 +85,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                         </CollapsibleTrigger>
                                     </SidebarGroupLabel>
                                     {item.items && (
-                                        <CollapsibleContent className="ml-6">
+                                        <CollapsibleContent className="ml-6 mt-1">
                                             <SidebarGroupContent>
                                                 <SidebarMenu>
                                                     {item.items.map((item) => (

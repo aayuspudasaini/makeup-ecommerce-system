@@ -1,10 +1,13 @@
 import { Home, Settings, LucideIcon, UserRound } from "lucide-react";
 import { IconType } from "react-icons";
-import { TfiLayoutSlider } from "react-icons/tfi";
 import { BiCategoryAlt } from "react-icons/bi";
 import { LuBookText } from "react-icons/lu";
 import { LuCalendarRange } from "react-icons/lu";
 import { RiUserAddLine } from "react-icons/ri";
+import { BsBoxSeam } from "react-icons/bs";
+import { TfiLayoutSliderAlt } from "react-icons/tfi";
+import { TbShoppingCartCheck } from "react-icons/tb";
+import { IoCashOutline } from "react-icons/io5";
 interface iNavProps {
     title: string;
     href: string;
@@ -24,28 +27,6 @@ export const NavLinkItems: iNavGroupProps[] = [
         href: "/dashboard",
         icon: Home,
     },
-
-    {
-        title: "Carousel",
-        href: "/carousel",
-        icon: TfiLayoutSlider,
-    },
-
-    {
-        title: "Category",
-        href: "/category",
-        icon: BiCategoryAlt,
-    },
-    {
-        title: "Product",
-        href: "/product",
-        icon: BiCategoryAlt,
-    },
-    {
-        title: "Order",
-        href: "/order",
-        icon: BiCategoryAlt,
-    },
     {
         title: "Bookings",
         href: "/bookings",
@@ -64,14 +45,40 @@ export const NavLinkItems: iNavGroupProps[] = [
         ],
     },
     {
+        title: "Product",
+        href: "/product",
+        icon: BsBoxSeam,
+    },
+    {
+        title: "Category",
+        href: "/category",
+        icon: BiCategoryAlt,
+    },
+    {
+        title: "Order",
+        href: "/order",
+        icon: TbShoppingCartCheck,
+    },
+    {
+        title: "Payment",
+        href: "/payment",
+        icon: IoCashOutline,
+    },
+
+    {
+        title: "Users",
+        href: "/settings/users",
+        icon: UserRound,
+    },
+    {
         title: "Settings",
         href: "/settings",
         icon: Settings,
         items: [
             {
-                title: "Users",
-                href: "/settings/users",
-                icon: UserRound,
+                title: "Carousel",
+                href: "/carousel",
+                icon: TfiLayoutSliderAlt,
             },
         ],
     },
