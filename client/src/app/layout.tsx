@@ -10,6 +10,8 @@ import { ModalProvider } from "@/providers/modal-provider";
 const font = Manrope({
     subsets: ["latin"],
     weight: ["400", "500", "600", "700", "800"],
+    variable:"--font-manrope",
+    display:"swap"
 });
 
 export const metadata: Metadata = {
