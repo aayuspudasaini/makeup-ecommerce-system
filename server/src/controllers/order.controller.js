@@ -1,5 +1,5 @@
 const { HTTP_STATUS } = require("../constants/http.config");
-const { orderService } = require("../services/order.services");
+const { orderService } = require("../services/order.service");
 const { successResponse } = require("../utils/success.response");
 
 async function createOrder(req, res, next) {
