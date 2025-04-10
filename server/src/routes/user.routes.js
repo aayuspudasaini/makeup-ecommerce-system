@@ -13,8 +13,8 @@ userRoute
     .route("/logout")
     .post(identification, asyncHandler(userController.logoutUser));
 
-userRoute
-    .route("/users")
-    .get(identification, asyncHandler(userController.getAllUser));
+userRoute.route("/users").get(asyncHandler(userController.getAllUser));
+
+userRoute.route("/users/:id").delete(asyncHandler(userController.deleteUser));
 
 module.exports = userRoute;

@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/app/(backend)/loading";
 import { CustomButton } from "@/components/reusable/custom-button";
 import { InputField, InputType } from "@/components/reusable/input-field";
 import { SelectField, SelectType } from "@/components/reusable/select-field";
@@ -69,6 +70,11 @@ export const ClassBookingForm: React.FC<iFormProps> = ({ type, res, id }) => {
             form.setValue("shift", res.shift);
         }
     }, [form, res]);
+
+    console.log(form.watch("shift"));
+
+    if (type === "edit" && !res) return <Loading />;
+
     return (
         <Card className="rounded-lg p-0">
             <CardContent className="p-4">

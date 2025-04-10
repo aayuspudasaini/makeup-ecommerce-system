@@ -17,10 +17,6 @@ async function getAllCarousel(req, res) {
 async function createCarousel(req, res) {
     const result = carouselSchema.parse({ ...req.body });
 
-    console.log(req.file);
-
-    console.log(result);
-
     if (req.file) {
         result.content = req.file.path;
     }

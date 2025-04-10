@@ -19,6 +19,11 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/reusable/user-avatar";
 import { SortedSiteHeader } from "@/components/table/sorted-header";
+import { useModalHook } from "@/hooks/use-modal-store";
+import { useMutation } from "@tanstack/react-query";
+import { deleteUserMutationFn } from "@/lib/api";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface iColumnProps {
     _id: string;
@@ -33,19 +38,29 @@ interface iColumnProps {
 }
 
 const TableAction = ({ id }: { id: string }) => {
-    // const { onOpen } = useModalHook();
+    const { onOpen } = useModalHook();
 
-    // const DeleteData = async () => {
-    //     // const res = await DeleteUser({ id: id });
-    //     // if (!res?.data?.status) {
-    //     //   toast.error(res?.data?.error);
-    //     // } else {
-    //     //   toast.success(res?.data?.message);
-    //     // }
-    // };
+    const router = useRouter();
+
+    const { mutate, isPending } = useMutation({
+        mutationFn: deleteUserMutationFn,
+    });
+
+    const DeleteData = async () => {
+        mutate(id, {
+            onSuccess: (data) => {
+                toast.success(data?.data?.message);
+                router.refresh();
+            },
+            onError: (error) => {
+                toast.error(error?.message);
+            },
+        });
+    };
+
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger className="cursor-pointer" asChild>
                 <Button variant="ghost" size="sm" className="">
                     <EllipsisIcon className="h-6 w-4" />
                 </Button>
@@ -54,23 +69,14 @@ const TableAction = ({ id }: { id: string }) => {
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                    className=" w-full cursor-pointer  text-blue-700 focus:text-blue-700 focus:bg-blue-700/20"
-                    asChild
-                >
-                    <Link href={`/users/${id}/edit`}>
-                        <SquarePen className="w-4 h-4" />
-                        Edit
-                    </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                    className=" w-full  cursor-pointer text-red-600 focus:text-red-600  focus:bg-red-600/20"
+                    className="w-full cursor-pointer text-red-600 focus:text-red-600  focus:bg-red-600/20"
                     asChild
                 >
                     <button
                         className="w-full"
-                        // onClick={() => onOpen("deleteModal", DeleteData)}
+                        onClick={() => onOpen("deleteModal", DeleteData)}
                     >
-                        <Trash2 className="w-4 h-4 " />
+                        <Trash2 className="size-4 text-red-600 focus:text-red-600  focus:bg-red-600/20" />
                         Delete
                     </button>
                 </DropdownMenuItem>

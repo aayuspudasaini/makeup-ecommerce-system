@@ -69,6 +69,18 @@ const userController = {
         // Send success response
         successResponse(res, HTTP_STATUS.OK, true, null, "Logout successful");
     },
+
+    deleteUser: async (req, res, next) => {
+        const { id } = req.params;
+        await userService.remove(id);
+        successResponse(
+            res,
+            HTTP_STATUS.OK,
+            true,
+            undefined,
+            "Data Deleted successfully."
+        );
+    },
 };
 
 module.exports = { userController };

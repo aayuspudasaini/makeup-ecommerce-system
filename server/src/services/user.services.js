@@ -44,6 +44,13 @@ const userService = {
 
         return { user, access_token, refresh_token };
     },
+    remove: async (id) => {
+        const deletedData = await User.findByIdAndDelete(id);
+
+        if (!deletedData) throw new BadRequestException("Category not found.");
+
+        return deletedData;
+    },
 };
 
 module.exports = { userService };

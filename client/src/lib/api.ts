@@ -26,6 +26,8 @@ export const signIn = async (data: z.infer<typeof SignInSchema>) =>
 
 export const getAllUser = async () => await API.get("/users");
 
+export const deleteUserMutationFn = async (id: string) => await API.delete(`/users/${id}`);
+
 /**
  * @description This file contains all the API routes related to carousel management.
  * These routes allow for the retrieval, creation, updating, and deletion of carousel.
