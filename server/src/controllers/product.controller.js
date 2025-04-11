@@ -15,8 +15,17 @@ async function getAllProducts(req, res, next) {
 }
 
 async function createProduct(req, res, next) {
-    // Validate the request body
+    const files = req.files;
+
+    const fileArray = files.map((file) => ({
+        url: file.path,
+    }));
+
+    console.log(fileArray);
+
     req.body.price = parseInt(req.body.price);
+
+    req.body.discountPrice = parseInt(req.body.discountPrice);
 
     const validatedData = productSchema.parse({ ...req.body });
 

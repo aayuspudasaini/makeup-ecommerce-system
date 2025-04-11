@@ -1,7 +1,7 @@
 import React from "react";
-import { CategoryForm } from "../../_components/category-form";
 import { getCategoryById } from "@/lib/api";
 import Loading from "@/app/(backend)/loading";
+import { ProductForm } from "../../_components/product-form";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -24,7 +24,7 @@ export default async function CategoryEditPage({ params }: Params) {
                     </p>
                 </div>
             </div>
-            <CategoryForm type="edit" res={data?.data} id={id} />
+            <ProductForm type="edit" res={data?.data} id={id} />
         </React.Fragment>
     );
 }

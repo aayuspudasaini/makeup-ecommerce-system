@@ -24,6 +24,7 @@ export enum InputType {
     COLOR = "color",
     EMAIL = "email",
     PHONENUMBER = "phone_number",
+    NUMBER = "number",
 }
 
 export interface iInputFieldProps {
@@ -58,7 +59,7 @@ const RenderInput = ({
 }) => {
     const { errors } = useFormState();
 
-    const { type, name, icon, placeholder, inputclassname } = props;
+    const { type, name, icon, placeholder, inputclassname, required } = props;
 
     switch (type) {
         case InputType.INPUT:
@@ -146,6 +147,26 @@ const RenderInput = ({
                         defaultCountry="NP"
                         countries={["NP"]}
                         addInternationalOption={false}
+                    />
+                </FormControl>
+            );
+
+        case InputType.NUMBER:
+            return (
+                <FormControl>
+                    <Input
+                        type="number"
+                        {...field}
+                        className={cn(
+                            "input-field",
+                            inputclassname,
+                            errors[name]
+                                ? "border-red-500"
+                                : "border-gray-300/70 dark:border-gray-300/20"
+                        )}
+                        placeholder={placeholder}
+                        required={required}
+                        min={0}
                     />
                 </FormControl>
             );

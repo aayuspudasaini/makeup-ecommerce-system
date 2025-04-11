@@ -1,4 +1,4 @@
-const { object, string, number } = require("zod");
+const { object, string, number, any } = require("zod");
 
 const productSchema = object({
     name: string()
@@ -10,9 +10,13 @@ const productSchema = object({
     price: number()
         .positive("Price must be a positive number")
         .min(0.01, "Price must be at least 0.01"),
+    discountPrice: number()
+        .positive("Discout Price must be a positive number")
+        .min(0, "Discount Price must be at least 0"),
     category: string()
         .min(1, "Category ID is required")
-        .regex(/^[a-fA-F0-9]{24}$/, "Invalid Category ID format"), // MongoDB ObjectId validation
+        .regex(/^[a-fA-F0-9]{24}$/, "Invalid Category ID format"),
+    image: any(),
 });
 
 module.exports = { productSchema };

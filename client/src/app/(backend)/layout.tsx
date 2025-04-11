@@ -18,7 +18,7 @@ export default function BackendLayout({
         <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-                <header className="flex h-[3.6rem] border-b shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-[3.6rem]  dark:bg-black">
+                <header className="flex sticky top-0  z-20 h-[3.6rem] border-b shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-[3.6rem] bg-sidebar">
                     <div className="flex items-center gap-2 px-4">
                         <SidebarTrigger className="-ml-1" />
                         <Separator
@@ -37,7 +37,7 @@ export default function BackendLayout({
                         />
                     </div>
                 </header>
-                <div className="flex flex-1 flex-col gap-4 p-4 bg-gray-200/40 dark:bg-black/70">
+                <div className="flex flex-1 flex-col gap-4 p-4 bg-sidebar-accent dark:bg-sidebar/30">
                     {children}
                 </div>
             </SidebarInset>

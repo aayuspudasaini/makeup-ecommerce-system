@@ -8,12 +8,18 @@ const prodRoute = Router();
 prodRoute
     .route("/")
     .get(asyncHandler(productController.getAllProducts))
-    .post(upload.single("url"), asyncHandler(productController.createProduct));
+    .post(
+        upload.array("images", 5),
+        asyncHandler(productController.createProduct)
+    );
 
 prodRoute
     .route("/:id")
     .get(asyncHandler(productController.getProductById))
-    .patch(upload.single("url"), asyncHandler(productController.updateProduct))
+    .patch(
+        upload.single("images"),
+        asyncHandler(productController.updateProduct)
+    )
     .delete(asyncHandler(productController.deleteProduct));
 
 prodRoute

@@ -1,4 +1,4 @@
-import { object, string, boolean, z, any, enum as zodEnum } from "zod";
+import { object, string, boolean, z, any, number, enum as zodEnum } from "zod";
 
 /**
  * @desc This section contains all the global validation schema
@@ -205,4 +205,22 @@ export const classBookingSchema = object({
             message: "Shift must be Morning, Day, or Evening",
         }),
     }),
+});
+
+// Product Validation
+export const productSchema = object({
+    name: string()
+        .min(1, "Product name is required")
+        .max(100, "Product name must not exceed 100 characters"),
+    description: string()
+        .min(1, "Product description is required")
+        .max(500, "Product description must not exceed 500 characters"),
+    price: string()
+        .min(1, "Price must be at least 1"),
+    discountPrice: string()
+        .min(0, "Discount Price must be at least 0"),
+    category: string()
+        .min(1, "Category ID is required")
+        .regex(/^[a-fA-F0-9]{24}$/, "Invalid Category ID format"),
+    image: any().optional(),
 });

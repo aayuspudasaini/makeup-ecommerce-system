@@ -1,5 +1,9 @@
 const Product = require("../models/product.model");
-const { BadRequestException } = require("../exceptions/errors.exceptions");
+const {
+    BadRequestException,
+    NotFoundException,
+} = require("../exceptions/errors.exceptions");
+const { Category } = require("../models/category.model");
 
 const productService = {
     // Fetch all products
@@ -55,7 +59,18 @@ const productService = {
 
     // Create a new product
     create: async (data) => {
-        return await Product.create(data);
+        const { category } = data;
+
+        const catExists = await Category.exists({ _id: category });
+
+        if (!catExists) throw new NotFoundException("Invalid Category Id");
+
+        const newProd = await Product.create({
+            ...data,
+            category: catExists._id,
+        });
+
+        return newProd;
     },
 
     // Find a product by ID

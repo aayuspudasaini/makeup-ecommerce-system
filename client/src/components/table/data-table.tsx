@@ -142,7 +142,7 @@ export function DataTable<TData, TValue>({
                 </DropdownMenu>
             </div>
             <div className="rounded-md border">
-                <Table className="w-full overflow-auto bg-background rounded-md">
+                <Table className="w-full overflow-auto bg-sidebar rounded-md">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
@@ -239,7 +239,7 @@ export function DataTable<TData, TValue>({
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="cursor-pointer"
+                                className="cursor-pointer bg-sidebar"
                                 onClick={() => table.firstPage()}
                                 disabled={!table.getCanPreviousPage()}
                             >
@@ -250,7 +250,7 @@ export function DataTable<TData, TValue>({
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="cursor-pointer"
+                                className="cursor-pointer bg-sidebar"
                                 onClick={() => table.previousPage()}
                                 disabled={!table.getCanPreviousPage()}
                             >
@@ -265,7 +265,7 @@ export function DataTable<TData, TValue>({
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="cursor-pointer"
+                                className="cursor-pointer bg-sidebar"
                                 onClick={() => table.nextPage()}
                                 disabled={!table.getCanNextPage()}
                             >
@@ -276,7 +276,7 @@ export function DataTable<TData, TValue>({
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="cursor-pointer"
+                                className="cursor-pointer bg-sidebar"
                                 onClick={() => table.lastPage()}
                                 disabled={!table.getCanNextPage()}
                             >

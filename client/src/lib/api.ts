@@ -137,7 +137,35 @@ export const updateClassMutationFn = async (
 export const deleteClassMutationFn = async (id: string) =>
     await API.delete(`/class/${id}`);
 
+
+
+/**
+ * @description This file contains all the API routes related to product management.
+ * These routes allow for the retrieval, creation, updating, and deletion of product.
+ *
+ * @method GET - Retrieves a list of all product.
+ * @method POST - Creates a new product.
+ * @method GET - Retrieves a specific product by its ID.
+ * @method PATCH - Updates an existing product by its ID.
+ * @method DELETE - Deletes a product by its ID.
+ */
+
+export const getAllProduct = async () => await API.get("/products");
+
+export const createProductMutationFn = async (
+    data: z.infer<typeof classBookingSchema>
+) => await API.post("/class", data);
+
+export const getProductById = async (id: string) => await API.get(`/class/${id}`);
+
+export const updateProductMutationFn = async (
+    id: string,
+    data: z.infer<typeof classBookingSchema>
+) => await API.patch(`/class/${id}`, data);
+
+export const deleteProductMutationFn = async (id: string) =>
+    await API.delete(`/products/${id}`);
+
 export const uploadMutationFn = async (data: any) => {
     console.log("API FROM FRONTEND", data);
-    // await API.post("/upload", data.upload[0]);
 };

@@ -7,14 +7,19 @@ import { FileUploaderField } from "@/components/reusable/file-uploader-field";
 import { InputField, InputType } from "@/components/reusable/input-field";
 import { Card, CardContent } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { createCategoryMutationFn, updateCategoryMutationFn } from "@/lib/api";
-import { categorySchema } from "@/lib/validation";
+import {
+    createCategoryMutationFn,
+    getAllCategory,
+    updateCategoryMutationFn,
+} from "@/lib/api";
+import { categorySchema, productSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
+import { SelectField, SelectType } from "@/components/reusable/select-field";
 
 interface iFormProps {
     type: "create" | "edit";
@@ -22,9 +27,9 @@ interface iFormProps {
     id?: string;
 }
 
-type CategoryFormData = z.infer<typeof categorySchema>;
+type ProductFormType = z.infer<typeof productSchema>;
 
-export const CategoryForm: React.FC<iFormProps> = ({ type, res, id }) => {
+export const ProductForm: React.FC<iFormProps> = ({ type, res, id }) => {
     const router = useRouter();
 
     const { mutate, isPending } = useMutation({
@@ -35,13 +40,21 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res, id }) => {
                       updateCategoryMutationFn(id as string, formData),
     });
 
-    const form = useForm<CategoryFormData>({
+    const { data: catData, isLoading: catLoading } = useQuery({
+        queryKey: ["category"],
+        queryFn: getAllCategory,
+    });
+
+    const form = useForm<ProductFormType>({
         defaultValues: {
             name: "",
             description: "",
+            category: "",
+            price: "",
+            discountPrice: "",
             image: undefined,
         },
-        resolver: zodResolver(categorySchema),
+        resolver: zodResolver(productSchema),
     });
 
     const dropzoneConfig = {
@@ -52,12 +65,12 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res, id }) => {
         maxSize: 10 * 1024 * 1024,
     } satisfies DropzoneOptions;
 
-    React.useEffect(() => {
-        form.reset(res);
-        form.setValue("image", "");
-    }, [form, res]);
+    // React.useEffect(() => {
+    //     form.reset(res);
+    //     form.setValue("image", "");
+    // }, [form, res]);
 
-    const onSubmit = (data: CategoryFormData) => {
+    const onSubmit = (data: ProductFormType) => {
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("description", data.description);
@@ -65,7 +78,7 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res, id }) => {
 
         mutate(formData, {
             onSuccess: ({ data }) => {
-                router.replace("/category");
+                router.replace("/product");
                 form.reset();
                 toast.success(data?.message);
             },
@@ -74,6 +87,8 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res, id }) => {
             },
         });
     };
+
+    console.log(form.watch("category"));
 
     return (
         <Card className="rounded-lg p-0">
@@ -99,6 +114,38 @@ export const CategoryForm: React.FC<iFormProps> = ({ type, res, id }) => {
                             placeholder="Write something..."
                             disabled={isPending}
                         />
+                        <InputField
+                            label="Price"
+                            control={form.control}
+                            name="price"
+                            type={InputType.NUMBER}
+                            placeholder="10000"
+                            disabled={isPending}
+                        />
+                        <InputField
+                            label="Discount Price"
+                            control={form.control}
+                            name="discountPrice"
+                            type={InputType.NUMBER}
+                            placeholder="10000"
+                            disabled={isPending}
+                        />
+                        {!catLoading && (
+                            <SelectField
+                                type={SelectType.SELECT}
+                                label="Category"
+                                name="category"
+                                control={form.control}
+                                placeholder="Select a category"
+                                options={catData?.data.data.map(
+                                    (item: any) => ({
+                                        id: item._id,
+                                        label: item.name,
+                                        value: item._id,
+                                    })
+                                )}
+                            />
+                        )}
                         <FileUploaderField
                             control={form.control}
                             name="image"
